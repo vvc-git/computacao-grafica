@@ -1,15 +1,11 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow
 import sys
+from object import Point
 
 
-def window():
-
+if __name__ == '__main__':
     app = QApplication(sys.argv)
-    win = QMainWindow()
-    win.setGeometry(200, 200, 300, 300)
-
-    win.show()
+    window = Point('ponto1', (1, 2))
+    window.show()
     sys.exit(app.exec_())
-
-window()
