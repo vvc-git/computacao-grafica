@@ -33,7 +33,7 @@ class Point(QWidget):
         self.setWindowTitle('Desenhar Ponto')
 
     def paintEvent(self, event):
-        painter = QPainter(self)
+        painter = QPainter()
         painter.setRenderHint(QPainter.Antialiasing)
         painter.setPen(QPen(Qt.black, 5, Qt.SolidLine))
         # Desenha o ponto no centro da janela
