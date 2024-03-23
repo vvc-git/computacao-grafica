@@ -18,28 +18,24 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>10</y>
-      <width>371</width>
-      <height>711</height>
+      <y>0</y>
+      <width>231</width>
+      <height>721</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Teste</string>
-       </property>
-      </widget>
+      <widget class="QWidget" name="MenuDeFuncoes" native="true"/>
      </item>
     </layout>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>10</y>
-      <width>651</width>
-      <height>491</height>
+      <x>240</x>
+      <y>0</y>
+      <width>801</width>
+      <height>501</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
@@ -51,13 +47,17 @@
    <widget class="QWidget" name="horizontalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>380</x>
+      <x>240</x>
       <y>510</y>
-      <width>651</width>
+      <width>801</width>
       <height>211</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2"/>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QWidget" name="Terminal" native="true"/>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
