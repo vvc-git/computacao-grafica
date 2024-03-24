@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from PyQt5.QtCore import Qt, QLineF, QRect
+from constant import WINDOW_WIDTH, VIEWPORT_HEIGHT, VIEWPORT_WIDTH
 
 
 
@@ -44,11 +45,14 @@ class Point(Object):
         # Define o tamanho do ponto
         tamanho_ponto = 10
 
+        posicaoX = self.x + WINDOW_WIDTH - VIEWPORT_WIDTH
+        print(posicaoX)
+
         # Calcula o retângulo que circunda o ponto
-        x_esquerda = self.x - tamanho_ponto // 2
+        x_esquerda = posicaoX - tamanho_ponto // 2
         y_superior = self.y - tamanho_ponto // 2
 
-        ponto_rect = QRect(x_esquerda, y_superior, tamanho_ponto, tamanho_ponto)
+        ponto_rect = QRect(posicaoX, y_superior, tamanho_ponto, tamanho_ponto)
         # Desenha o círculo centrado no ponto
         painter.drawEllipse(ponto_rect)
 

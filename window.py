@@ -23,7 +23,7 @@ class Window(QMainWindow):
     # !! APAGAR
     def teste(self):
         # Adicione quantos objetos gráficos você quiser aqui
-        objeto1 = Point(50, 50, QColor(0, 0, 0))  # Quadrado preto
+        objeto1 = Point(0, VIEWPORT_HEIGHT, QColor(0, 0, 0))  # Quadrado preto
         objeto2 = Point(200, 200, QColor(255, 0, 0))  # Quadrado vermelho
 
         self.display_file.append(objeto1)
