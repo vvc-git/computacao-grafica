@@ -5,33 +5,37 @@ from PyQt5.QtGui import QPen
 from PyQt5.QtCore import Qt
 from object import Point, Line, Wireframe
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from constant import WINDOW_HEIGHT, WINDOW_WIDTH, VIEWPORT_HEIGHT, VIEWPORT_WIDTH
+from constant import WINDOW_HEIGHT, WINDOW_WIDTH, VIEWPORT_HEIGHT, VIEWPORT_WIDTH, VIEWPORT_X
 
 class Window(QMainWindow):  
     def __init__(self): #points = (x1, y1)
       super().__init__()
       self.ui = Ui_MainWindow()
       self.ui.setupUi(self)
-      self.viewport = self.ui.Viewport
+      self.viewport = Viewport(self.ui.Viewport)
       self.verticalLayoutWidget = self.ui.MenuDeFuncoes
       self.horizontalLayoutWidget = self.ui.Terminal
       self.display_file = []
       self.setWindowTitle('Computação Gráfica 2D')
       self.resize(WINDOW_WIDTH, WINDOW_HEIGHT)
       self.teste()
+      self.teste2()
 
     # !! APAGAR
     def teste(self):
         # Adicione quantos objetos gráficos você quiser aqui
-        #objeto1 = Point('Point 1', [(0, 0)], QPen(Qt.green, 1.5))  
-        #objeto2 = Line('Line X ', [(0, 0), (VIEWPORT_WIDTH, 0)], QPen(Qt.red, 1.5))  # 5 é a largura da linha)
-        #objeto3 = Line('Line Y ', [(0, 0), (0, VIEWPORT_HEIGHT)], QPen(Qt.red, 1.5))  # 5 é a largura da linha)
-        objeto4 = Wireframe('Triangulo', [(0,0), (300, 0), (300, 400), (350, 500)], QPen(Qt.blue, 1.5))
+        objeto1 = Point('Point 1', [(0, 0)], QPen(Qt.green, 1.5), self.viewport)  
+        objeto2 = Line('Line X ', [(0, 0), (VIEWPORT_WIDTH, 0)], QPen(Qt.red, 1.5))  # 5 é a largura da linha)
+        objeto3 = Line('Line Y ', [(0, 0), (0, VIEWPORT_HEIGHT)], QPen(Qt.red, 1.5))  # 5 é a largura da linha)
+        objeto4 = Wireframe('Triangulo', [(0,0), (300, 0), (300, 400), (350, 500)], QPen(Qt.blue, 1.5), self.viewport)
 
-        # self.display_file.append(objeto2)
-        # self.display_file.append(objeto1)
-        # self.display_file.append(objeto3)
+        self.display_file.append(objeto2)
+        self.display_file.append(objeto1)
+        self.display_file.append(objeto3)
         self.display_file.append(objeto4)
+    
+    def teste2(self):
+      self.viewport.desloca()
 
     def setUpViewport(self):
       painter = QPainter(self)
@@ -67,6 +71,33 @@ class Window(QMainWindow):
       painter = QPainter(self)
       for objeto in self.display_file:
           objeto.draw(painter)
+      
+
+
+class Viewport():  
+    def __init__(self, viewport_ui): #points = (x1, y1)
+      self.widget = viewport_ui
+      self.limitX = WINDOW_WIDTH - VIEWPORT_WIDTH
+      self.limitY = WINDOW_HEIGHT - VIEWPORT_HEIGHT
+      self.x = WINDOW_WIDTH - VIEWPORT_WIDTH
+      self.y = WINDOW_HEIGHT - VIEWPORT_HEIGHT
+
+    def getX(self):
+       return self.x
+    
+    def getY(self):
+      return self.y
+    
+    def getLimitX(self):
+       return self.x
+    
+    def getLimitY(self):
+      return self.y
+
+    def desloca(self):
+       self.x -= 100
+
+
 
 
        

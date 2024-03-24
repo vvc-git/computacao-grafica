@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from PyQt5.QtCore import Qt, QLineF, QRect
 from PyQt5.QtGui import QPen
-from constant import WINDOW_WIDTH, VIEWPORT_HEIGHT, VIEWPORT_WIDTH
+from constant import WINDOW_WIDTH, VIEWPORT_HEIGHT, VIEWPORT_WIDTH, VIEWPORT_X
 
 
 
@@ -12,6 +12,7 @@ class Object(ABC):
         self.name = None
         self.color = None
         self.points = []
+        self.viewport = None
 
     def getPoints(self):
         return self.points
@@ -31,10 +32,11 @@ class Object(ABC):
 
 
 class Point(Object):
-    def __init__(self, name, points, color):
+    def __init__(self, name, points, color, viewport):
         self.x = points[0][0]
         self.y = points[0][1]
         self.color = color
+        self.viewport = viewport
 
     def draw(self, painter):
         # * Teoricamente isso, funciona, mas os pontos são muito pequenos 
@@ -46,7 +48,7 @@ class Point(Object):
         # Define o tamanho do ponto
         tamanho_ponto = 10
 
-        posicaoX = self.x + WINDOW_WIDTH - VIEWPORT_WIDTH
+        posicaoX = self.x + self.viewport.getX() 
         posicaoY = VIEWPORT_HEIGHT - self.y
 
         # Calcula o retângulo que circunda o ponto
@@ -82,10 +84,11 @@ class Line(Object):
 
 # Polígono
 class Wireframe(Object):
-    def __init__(self, name, points, color):
+    def __init__(self, name, points, color, viewport):
         self.name = name
         self.points = points
         self.color =  color
+        self.viewport = viewport
 
     def draw(self, painter):
 
@@ -96,11 +99,10 @@ class Wireframe(Object):
             if i > 0:
             
                 # Corrige em relação ao viewport
-                posicaoX1 = previous[0] + WINDOW_WIDTH - VIEWPORT_WIDTH
+                posicaoX1 = previous[0] + self.viewport.getX() 
                 posicaoY1 = VIEWPORT_HEIGHT - previous[1]
-
-                posicaoX2 = point[0] + WINDOW_WIDTH - VIEWPORT_WIDTH
-                posicaoY2 = VIEWPORT_HEIGHT - point[1]
+                posicaoX2 = point[0] + self.viewport.getX() 
+                posicaoY2 = VIEWPORT_HEIGHT - point[1] 
 
                 # Desenha o círculo centrado no ponto
                 painter.setPen(self.color)
@@ -110,10 +112,9 @@ class Wireframe(Object):
 
                 if i == (len(self.points)-1):
                     # Corrige em relação ao viewport
-                    posicaoLastX = point[0] + WINDOW_WIDTH - VIEWPORT_WIDTH
-                    posicaoLastY = VIEWPORT_HEIGHT - point[1]
-
-                    posicaoFirstX = first[0] + WINDOW_WIDTH - VIEWPORT_WIDTH
+                    posicaoLastX = point[0] + self.viewport.getX() 
+                    posicaoLastY = VIEWPORT_HEIGHT - point[1] 
+                    posicaoFirstX = first[0] + self.viewport.getX()
                     posicaoFirstY = VIEWPORT_HEIGHT - first[1]
 
                     # Desenha o círculo centrado no ponto
