@@ -12,9 +12,9 @@ class Window(QMainWindow):
       super().__init__()
       self.ui = Ui_MainWindow()
       self.ui.setupUi(self)
-      self.viewport = self.ui.Viewport
-      self.verticalLayoutWidget = self.ui.MenuDeFuncoes
-      self.horizontalLayoutWidget = self.ui.Terminal
+      self.viewport = self.ui.viewportWidget
+      self.verticalLayoutWidget = self.ui.functionsMenuWidget
+      self.horizontalLayoutWidget = self.ui.terminalWidget
       self.display_file = []
       self.setWindowTitle('Computação Gráfica 2D')
       self.resize(WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -30,9 +30,7 @@ class Window(QMainWindow):
         self.display_file.append(objeto2)
 
     def setUpViewport(self):
-      painter = QPainter(self)
-      painter.setBrush(QColor(120,120,120))
-      painter.drawRect(WINDOW_WIDTH-VIEWPORT_WIDTH, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT)
+      self.viewport.setStyleSheet("background-color: gray;")
 
     def setUpMenu1(self):
       painter = QPainter(self)
