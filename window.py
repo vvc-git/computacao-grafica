@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QPaintEvent, QPainter, QColor
 from PyQt5.QtGui import QPen
 from PyQt5.QtCore import Qt
-from object import Point, Line
+from object import Point, Line, Wireframe
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from constant import WINDOW_HEIGHT, WINDOW_WIDTH, VIEWPORT_HEIGHT, VIEWPORT_WIDTH
 
@@ -23,11 +23,15 @@ class Window(QMainWindow):
     # !! APAGAR
     def teste(self):
         # Adicione quantos objetos gráficos você quiser aqui
-        objeto1 = Point(0, VIEWPORT_HEIGHT, QColor(0, 0, 0))  # Quadrado preto
-        objeto2 = Line(20, 20, 100, 100, QColor(255, 0, 0))  # Quadrado vermelho
+        #objeto1 = Point('Point 1', [(0, 0)], QPen(Qt.green, 1.5))  
+        #objeto2 = Line('Line X ', [(0, 0), (VIEWPORT_WIDTH, 0)], QPen(Qt.red, 1.5))  # 5 é a largura da linha)
+        #objeto3 = Line('Line Y ', [(0, 0), (0, VIEWPORT_HEIGHT)], QPen(Qt.red, 1.5))  # 5 é a largura da linha)
+        objeto4 = Wireframe('Triangulo', [(0,0), (300, 0), (300, 400), (350, 500)], QPen(Qt.blue, 1.5))
 
-        self.display_file.append(objeto1)
-        self.display_file.append(objeto2)
+        # self.display_file.append(objeto2)
+        # self.display_file.append(objeto1)
+        # self.display_file.append(objeto3)
+        self.display_file.append(objeto4)
 
     def setUpViewport(self):
       painter = QPainter(self)
