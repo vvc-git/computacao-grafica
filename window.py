@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QPaintEvent, QPainter, QColor
 from PyQt5.QtGui import QPen
 from PyQt5.QtCore import Qt
-from object import Point
+from object import Point, Line
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from constant import WINDOW_HEIGHT, WINDOW_WIDTH, VIEWPORT_HEIGHT, VIEWPORT_WIDTH
 
@@ -24,7 +24,7 @@ class Window(QMainWindow):
     def teste(self):
         # Adicione quantos objetos gráficos você quiser aqui
         objeto1 = Point(0, VIEWPORT_HEIGHT, QColor(0, 0, 0))  # Quadrado preto
-        objeto2 = Point(200, 200, QColor(255, 0, 0))  # Quadrado vermelho
+        objeto2 = Line(20, 20, 100, 100, QColor(255, 0, 0))  # Quadrado vermelho
 
         self.display_file.append(objeto1)
         self.display_file.append(objeto2)

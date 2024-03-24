@@ -56,3 +56,24 @@ class Point(Object):
         # Desenha o círculo centrado no ponto
         painter.drawEllipse(ponto_rect)
 
+
+class Line(Object):
+    def __init__(self, x1, y1, x2, y2, cor):
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+        self.cor = cor
+
+    def draw(self, painter):
+        # * Teoricamente isso, funciona, mas os pontos são muito pequenos 
+        # painter.setBrush(QBrush(self.cor))
+        # painter.drawPoint(self.x, self.y)
+        # painter.drawRect(self.x, self.y, 150, 150)
+
+        # * Isso gera circulos bem pequenos para representar os pontos
+        posicaoX1 = self.x1 + WINDOW_WIDTH - VIEWPORT_WIDTH
+        posicaoX2 = self.x2 + WINDOW_WIDTH - VIEWPORT_WIDTH
+
+        # Desenha o círculo centrado no ponto
+        painter.drawLine(posicaoX1, self.y1, posicaoX2, self.y2)
