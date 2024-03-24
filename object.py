@@ -8,6 +8,7 @@ class Object(ABC):
     def __init__(self):
         self.id = None
         self.name = None
+        self.color = None
         self.points = []
 
     def getPoints(self):
@@ -19,6 +20,13 @@ class Object(ABC):
     def getId(self):
         return self.id
 
+    def getColor(self):
+        return self.color
+    
+    @abstractmethod
+    def draw(self):
+        pass
+
 
 class Point(Object):
     def __init__(self, x, y, cor):
@@ -26,12 +34,14 @@ class Point(Object):
         self.y = y
         self.cor = cor
 
-    def desenhar(self, painter):
+    def draw(self, painter):
+        # * Teoricamente isso, funciona, mas os pontos são muito pequenos 
         # painter.setBrush(QBrush(self.cor))
         # painter.drawPoint(self.x, self.y)
         # painter.drawRect(self.x, self.y, 150, 150)
 
-         # Define o tamanho do ponto
+        # * Isso gera circulos bem pequenos para representar os pontos
+        # Define o tamanho do ponto
         tamanho_ponto = 10
 
         # Calcula o retângulo que circunda o ponto
