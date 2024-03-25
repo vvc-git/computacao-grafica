@@ -1,3 +1,5 @@
+ae# computacao-grafica
+
 ## Gerenciamento de pacotes
 
 Abra a pasta do seu projeto no VS Code. Se você já tem o VS Code aberto, pode usar o comando File > Open Folder... (Arquivo > Abrir Pasta...) para selecionar a pasta do seu projeto.
