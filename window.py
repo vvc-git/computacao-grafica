@@ -13,7 +13,6 @@ class Window(QMainWindow):
       self.ui = Ui_MainWindow()
       self.ui.setupUi(self)
       self.viewport = Viewport(self.ui.viewportWidget)
-      self.verticalLayoutWidget = self.ui.functionsMenuWidget
       self.horizontalLayoutWidget = self.ui.terminalWidget
       self.display_file = []
       self.setWindowTitle('Computação Gráfica 2D')
@@ -39,16 +38,12 @@ class Window(QMainWindow):
 
     def setUpViewport(self):
       self.viewport.widget.setStyleSheet("background-color: gray;")
+     
 
     def setUpMenu1(self):
       painter = QPainter(self)
       painter.setBrush(QColor(200,200,200))
       painter.drawRect(self.mapToGlobal(self.horizontalLayoutWidget.pos()).x(), self.mapToGlobal(self.horizontalLayoutWidget.pos()).y(), self.horizontalLayoutWidget.width(), self.horizontalLayoutWidget.height())
-
-    def setUpMenu2(self):
-      painter = QPainter(self)
-      painter.setBrush(QColor(58,58,58))
-      painter.drawRect(self.mapToGlobal(self.verticalLayoutWidget.pos()).x(), self.mapToGlobal(self.verticalLayoutWidget.pos()).y(), self.verticalLayoutWidget.width(), self.verticalLayoutWidget.height())
 
     
 
@@ -66,7 +61,7 @@ class Window(QMainWindow):
     # é chamado automaticamente pelo sistema de event loop do Qt sempre que a janela precisar ser redesenhada.
     def paintEvent(self, event):
       self.setUpViewport()
-      painter = QPainter(self)
+      painter = QPainter(self.viewport.widget)
       for objeto in self.display_file:
           objeto.draw(painter)
       
