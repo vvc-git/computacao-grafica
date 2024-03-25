@@ -61,10 +61,35 @@ class Point(Object):
 
 
 class Line(Object):
-    def __init__(self, name, points, color):
+    def __init__(self, name, points, color, viewport):
         self.name = name
         self.points = points
         self.color =  color
+        self.viewport = viewport
+
+    def verifica_limites(self, point):
+        if (point[0] < WINDOW_WIDTH - VIEWPORT_WIDTH):
+            print('esta a esquerda', point)
+            intersec = self.find_intersection_point(point, (300,400), (WINDOW_WIDTH - VIEWPORT_WIDTH,0), (WINDOW_WIDTH - VIEWPORT_WIDTH, VIEWPORT_HEIGHT))
+            print('ponto encontrado adicionado:', intersec)
+            return intersec
+        else:
+            return point
+    
+    def find_intersection_point(self, line1_start, line1_end, line2_start, line2_end):
+        x1, y1 = line1_start[0], line1_start[1]
+        x2, y2 = line1_end[0], line1_end[1]
+        x3, y3 = line2_start[0], line2_start[1]
+        x4, y4 = line2_end[0], line2_end[1]
+
+        # Calcula as coordenadas de interseção
+        denominator = ((x1 - x2) * (y3 - y4)) - ((y1 - y2) * (x3 - x4))
+        if denominator == 0:  # As linhas são paralelas ou coincidentes
+            return None
+        else:
+            px = (((x1 * y2 - y1 * x2) * (x3 - x4)) - ((x1 - x2) * (x3 * y4 - y3 * x4))) / denominator
+            py = (((x1 * y2 - y1 * x2) * (y3 - y4)) - ((y1 - y2) * (x3 * y4 - y3 * x4))) / denominator
+            return (int(px), int(py))
 
     def draw(self, painter):
 
@@ -72,15 +97,18 @@ class Line(Object):
         Point2 = self.points[1]
         
         # Corrige em relação ao viewport
-        posicaoX1 = Point1[0] + WINDOW_WIDTH - VIEWPORT_WIDTH
+        posicaoX1 = Point1[0] + self.viewport.getX()
         posicaoY1 = VIEWPORT_HEIGHT - Point1[1]
+
+        point = self.verifica_limites((posicaoX1, posicaoY1))
 
         posicaoX2 = Point2[0] + WINDOW_WIDTH - VIEWPORT_WIDTH
         posicaoY2 = VIEWPORT_HEIGHT - Point2[1]
 
         # Desenha o círculo centrado no ponto
         painter.setPen(self.color)
-        painter.drawLine(posicaoX1, posicaoY1, posicaoX2, posicaoY2)
+        # painter.drawLine(posicaoX1, posicaoY1, posicaoX2, posicaoY2)
+        painter.drawLine(point[0], point[1], posicaoX2, posicaoY2)
 
 # Polígono
 class Wireframe(Object):
@@ -122,7 +150,16 @@ class Wireframe(Object):
                     painter.drawLine(posicaoLastX, posicaoLastY, posicaoFirstX, posicaoFirstY)
 
 
+            
 
+
+        #if (point[0] > VIEWPORT_WIDTH):
+        #    print('esta a direita')
+        #if (point[1] < 0):
+        #    print('esta a acima')
+        #if (point[1] > VIEWPORT_HEIGHT):
+        #    print('esta a abaixo')
+        
 
 
                 
