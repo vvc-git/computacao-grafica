@@ -33,27 +33,29 @@ class Object(ABC):
 
 class Point(Object):
     def __init__(self, name, points, color, viewport):
-        self.x = points[0][0]
-        self.y = points[0][1]
+        self.points = points
+        self.x = int(points[0].x())
+        self.y = int(points[0].y())
         self.color = color
         self.viewport = viewport
 
-    def draw(self, painter):
+    def draw(self, painter, points):
         # * Teoricamente isso, funciona, mas os pontos são muito pequenos 
         # painter.setBrush(QBrush(self.cor))
         # painter.drawPoint(self.x, self.y)
         # painter.drawRect(self.x, self.y, 150, 150)
 
         # * Isso gera circulos bem pequenos para representar os pontos
-        # Define o tamanho do ponto
-        tamanho_ponto = 10
-
         posicaoX = self.x + self.viewport.getX() 
         posicaoY = VIEWPORT_HEIGHT - self.y
 
         # Calcula o retângulo que circunda o ponto
         x_esquerda = posicaoX - tamanho_ponto // 2
         y_superior = self.y - tamanho_ponto // 2
+
+
+        # Define o tamanho do ponto
+        tamanho_ponto = 10
 
         ponto_rect = QRect(posicaoX, posicaoY, tamanho_ponto, tamanho_ponto)
         # Desenha o círculo centrado no ponto
@@ -116,7 +118,7 @@ class Line(Object):
             py = (((x1 * y2 - y1 * x2) * (y3 - y4)) - ((y1 - y2) * (x3 * y4 - y3 * x4))) / denominator
             return (int(px), int(py))
 
-    def draw(self, painter):
+    def draw1(self, painter):
 
         Point1 = self.points[0]
         Point2 = self.points[1]
@@ -137,6 +139,16 @@ class Line(Object):
             painter.drawLine(list_point[0][0], list_point[0][1], list_point[1][0], list_point[0][1])
         else:
             painter.drawLine(posicaoX1, posicaoY1, posicaoX2, posicaoY2)
+
+    def draw(self, painter, points):
+
+        Point1 = points[0]
+        Point2 = points[1]
+
+        # Desenha o círculo centrado no ponto
+        painter.setPen(self.color)
+        print('pontos', Point1, Point2)
+        painter.drawLine(Point1[0], Point1[1], Point2[0], Point2[1])
 
 # Polígono
 class Wireframe(Object):

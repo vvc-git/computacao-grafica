@@ -45,7 +45,24 @@
        </widget>
       </item>
       <item>
-       <widget class="QWidget" name="viewportWidget" native="true"/>
+       <widget class="QWidget" name="viewportWidget" native="true">
+        <widget class="QFrame" name="frame">
+         <property name="geometry">
+          <rect>
+           <x>-1</x>
+           <y>-21</y>
+           <width>641</width>
+           <height>421</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+        </widget>
+       </widget>
       </item>
      </layout>
     </item>
@@ -64,7 +81,7 @@
        <number>9</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="typesGridLayout" rowstretch="0,0,0,0" columnstretch="70,30" columnminimumwidth="70,30">
+       <layout class="QGridLayout" name="typesGridLayout" rowstretch="0,0,0" columnstretch="70,30" columnminimumwidth="70,30">
         <property name="bottomMargin">
          <number>9</number>
         </property>
@@ -74,7 +91,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset theme="list-add"/>
+           <iconset theme="list-add">
+            <normaloff>.</normaloff>.</iconset>
           </property>
          </widget>
         </item>
@@ -132,7 +150,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset theme="list-remove"/>
+           <iconset theme="list-remove">
+            <normaloff>.</normaloff>.</iconset>
           </property>
          </widget>
         </item>
@@ -155,7 +174,8 @@
               <string/>
              </property>
              <property name="icon">
-              <iconset theme="go-up"/>
+              <iconset theme="go-up">
+               <normaloff>.</normaloff>.</iconset>
              </property>
             </widget>
            </item>
@@ -165,7 +185,8 @@
               <string/>
              </property>
              <property name="icon">
-              <iconset theme="go-previous"/>
+              <iconset theme="go-previous">
+               <normaloff>.</normaloff>.</iconset>
              </property>
             </widget>
            </item>
@@ -175,7 +196,8 @@
               <string/>
              </property>
              <property name="icon">
-              <iconset theme="go-next"/>
+              <iconset theme="go-next">
+               <normaloff>.</normaloff>.</iconset>
              </property>
             </widget>
            </item>
@@ -185,7 +207,8 @@
               <string/>
              </property>
              <property name="icon">
-              <iconset theme="go-down"/>
+              <iconset theme="go-down">
+               <normaloff>.</normaloff>.</iconset>
              </property>
             </widget>
            </item>
