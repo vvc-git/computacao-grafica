@@ -1,5 +1,5 @@
 from designer import Ui_MainWindow
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
 from PyQt5.QtGui import QPaintEvent, QPainter, QColor
 from PyQt5.QtGui import QPen
 from PyQt5.QtCore import Qt
@@ -12,9 +12,8 @@ class Window(QMainWindow):
       super().__init__()
       self.ui = Ui_MainWindow()
       self.ui.setupUi(self)
-      self.viewport = Viewport(self.ui.Viewport)
-      self.verticalLayoutWidget = self.ui.MenuDeFuncoes
-      self.horizontalLayoutWidget = self.ui.Terminal
+      self.viewport = Viewport(self.ui.viewportWidget)
+      self.horizontalLayoutWidget = self.ui.terminalWidget
       self.display_file = []
       self.setWindowTitle('Computação Gráfica 2D')
       self.resize(WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -39,19 +38,13 @@ class Window(QMainWindow):
       self.viewport.desloca()
 
     def setUpViewport(self):
-      painter = QPainter(self)
-      painter.setBrush(QColor(120,120,120))
-      painter.drawRect(WINDOW_WIDTH-VIEWPORT_WIDTH, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT)
+      self.viewport.widget.setStyleSheet("background-color: gray;")
+     
 
     def setUpMenu1(self):
       painter = QPainter(self)
       painter.setBrush(QColor(200,200,200))
       painter.drawRect(self.mapToGlobal(self.horizontalLayoutWidget.pos()).x(), self.mapToGlobal(self.horizontalLayoutWidget.pos()).y(), self.horizontalLayoutWidget.width(), self.horizontalLayoutWidget.height())
-
-    def setUpMenu2(self):
-      painter = QPainter(self)
-      painter.setBrush(QColor(58,58,58))
-      painter.drawRect(self.mapToGlobal(self.verticalLayoutWidget.pos()).x(), self.mapToGlobal(self.verticalLayoutWidget.pos()).y(), self.verticalLayoutWidget.width(), self.verticalLayoutWidget.height())
 
     
 
@@ -69,14 +62,15 @@ class Window(QMainWindow):
     # é chamado automaticamente pelo sistema de event loop do Qt sempre que a janela precisar ser redesenhada.
     def paintEvent(self, event):
       self.setUpViewport()
-      painter = QPainter(self)
+      painter = QPainter(self.viewport.widget)
       for objeto in self.display_file:
           objeto.draw(painter)
       
 
 
-class Viewport():  
+class Viewport(QWidget):  
     def __init__(self, viewport_ui): #points = (x1, y1)
+      super().__init__()
       self.widget = viewport_ui
       self.limitX = WINDOW_WIDTH - VIEWPORT_WIDTH
       self.limitY = WINDOW_HEIGHT - VIEWPORT_HEIGHT

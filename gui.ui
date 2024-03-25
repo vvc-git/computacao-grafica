@@ -6,71 +6,243 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1047</width>
-    <height>767</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>231</width>
-      <height>721</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QWidget" name="MenuDeFuncoes" native="true"/>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>0</y>
-      <width>801</width>
-      <height>501</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QWidget" name="Viewport" native="true"/>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>510</y>
-      <width>801</width>
-      <height>211</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QWidget" name="Terminal" native="true"/>
-     </item>
-    </layout>
-   </widget>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="centralWidgetGridLayout" rowstretch="80,20" columnstretch="12,85" rowminimumheight="80,20" columnminimumwidth="15,85">
+    <item row="1" column="1">
+     <layout class="QVBoxLayout" name="terminalVerticalLayout" stretch="0,100">
+      <item>
+       <widget class="QLabel" name="terminalLabel">
+        <property name="text">
+         <string>Terminal</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="terminalWidget" native="true"/>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="1">
+     <layout class="QVBoxLayout" name="viewportVerticalLayout" stretch="0,100">
+      <item>
+       <widget class="QLabel" name="viewportLabel">
+        <property name="text">
+         <string>Viewport</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="viewportWidget" native="true"/>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="0" rowspan="2">
+     <layout class="QVBoxLayout" name="optionsVerticalLayout" stretch="0,0,0">
+      <property name="leftMargin">
+       <number>9</number>
+      </property>
+      <property name="topMargin">
+       <number>9</number>
+      </property>
+      <property name="rightMargin">
+       <number>9</number>
+      </property>
+      <property name="bottomMargin">
+       <number>9</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="typesGridLayout" rowstretch="0,0,0,0" columnstretch="70,30" columnminimumwidth="70,30">
+        <property name="bottomMargin">
+         <number>9</number>
+        </property>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="typesAddButton">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset theme="list-add"/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QListWidget" name="typesListWidget">
+          <item>
+           <property name="text">
+            <string>Point</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Line</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Rectangle</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Wireframe</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="typesLabel">
+          <property name="text">
+           <string>Types</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="objectsGridLayout" columnstretch="70,30" columnminimumwidth="70,30">
+        <property name="bottomMargin">
+         <number>9</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="objectsLabel">
+          <property name="text">
+           <string>Objects</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QListView" name="objectsListView"/>
+        </item>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="objectsRemoveButton">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset theme="list-remove"/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="functionsGroupBox">
+        <property name="title">
+         <string>Functions</string>
+        </property>
+        <layout class="QVBoxLayout" name="functionsGroupBoxVerticalLayout">
+         <item>
+          <layout class="QGridLayout" name="moveGridLayout">
+           <property name="bottomMargin">
+            <number>9</number>
+           </property>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="upButton">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset theme="go-up"/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="leftButton">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset theme="go-previous"/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QPushButton" name="rightButton">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset theme="go-next"/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QPushButton" name="downButton">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset theme="go-down"/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="zoomGridLayout">
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item row="1" column="1">
+            <widget class="QLabel" name="zoomMarker">
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="text">
+              <string>100%</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QSlider" name="zoomHorizontalSlider">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="zoomLabel">
+             <property name="text">
+              <string>Zoom</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1047</width>
+     <width>800</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
