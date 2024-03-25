@@ -38,7 +38,8 @@ class Window(QMainWindow):
       self.viewport.desloca()
 
     def setUpViewport(self):
-      self.viewport.widget.setStyleSheet("background-color: gray;")
+      i = 0
+      #self.viewport.widget.setStyleSheet("background-color: gray;")
      
 
     def setUpMenu1(self):
@@ -62,7 +63,7 @@ class Window(QMainWindow):
     # é chamado automaticamente pelo sistema de event loop do Qt sempre que a janela precisar ser redesenhada.
     def paintEvent(self, event):
       self.setUpViewport()
-      painter = QPainter(self.viewport.widget)
+      painter = QPainter(self)
       for objeto in self.display_file:
           objeto.draw(painter)
       
