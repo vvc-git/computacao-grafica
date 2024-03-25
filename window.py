@@ -1,5 +1,5 @@
 from designer import Ui_MainWindow
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
 from PyQt5.QtGui import QPaintEvent, QPainter, QColor
 from PyQt5.QtGui import QPen
 from PyQt5.QtCore import Qt
@@ -38,7 +38,7 @@ class Window(QMainWindow):
       self.viewport.desloca()
 
     def setUpViewport(self):
-      self.viewport.setStyleSheet("background-color: gray;")
+      self.viewport.widget.setStyleSheet("background-color: gray;")
 
     def setUpMenu1(self):
       painter = QPainter(self)
@@ -72,8 +72,9 @@ class Window(QMainWindow):
       
 
 
-class Viewport():  
+class Viewport(QWidget):  
     def __init__(self, viewport_ui): #points = (x1, y1)
+      super().__init__()
       self.widget = viewport_ui
       self.limitX = WINDOW_WIDTH - VIEWPORT_WIDTH
       self.limitY = WINDOW_HEIGHT - VIEWPORT_HEIGHT
