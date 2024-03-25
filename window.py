@@ -6,6 +6,7 @@ from PyQt5.QtCore import Qt
 from object import Point, Line, Wireframe
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from constant import WINDOW_HEIGHT, WINDOW_WIDTH, VIEWPORT_HEIGHT, VIEWPORT_WIDTH, VIEWPORT_X
+from addWireframe import *
 
 class Window(QMainWindow):  
     def __init__(self): #points = (x1, y1)
@@ -18,6 +19,9 @@ class Window(QMainWindow):
       self.setWindowTitle('Computação Gráfica 2D')
       self.resize(WINDOW_WIDTH, WINDOW_HEIGHT)
       self.teste()
+      self.typesAddButton = self.ui.typesAddButton
+      self.addWireframeDialog = AddWireframe()
+      self.buttonsConnection()
 
     # !! APAGAR
     def teste(self):
@@ -66,8 +70,11 @@ class Window(QMainWindow):
       painter = QPainter(self)
       for objeto in self.display_file:
           objeto.draw(painter)
-      
 
+    def buttonsConnection(self):
+      self.ui.typesAddButton.clicked.connect(lambda: self.addWireframeDialog.show())
+
+    
 
 class Viewport(QWidget):  
     def __init__(self, viewport_ui): #points = (x1, y1)
