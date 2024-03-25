@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_AddWireframeDialog(object):
+class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(400, 300)
@@ -35,7 +35,6 @@ class Ui_AddWireframeDialog(object):
         self.ySpinBox.setObjectName("ySpinBox")
         self.addPointHorizontalLayout.addWidget(self.ySpinBox)
         self.addButton = QtWidgets.QPushButton(Dialog)
-        self.addButton.setText("")
         icon = QtGui.QIcon.fromTheme("list-add")
         self.addButton.setIcon(icon)
         self.addButton.setObjectName("addButton")
@@ -58,14 +57,25 @@ class Ui_AddWireframeDialog(object):
         self.verticalLayout.addWidget(self.buttonBox)
 
         self.retranslateUi(Dialog)
-        # self.buttonBox.accepted.connect(Dialog.accept) # type: ignore
-        # self.buttonBox.rejected.connect(Dialog.reject) # type: ignore
+        self.buttonBox.accepted.connect(Dialog.accept) # type: ignore
+        self.buttonBox.rejected.connect(Dialog.reject) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "Wireframe"))
         self.messageLabel.setText(_translate("Dialog", "Add the points of the polygon:"))
         self.xLabel.setText(_translate("Dialog", "x"))
         self.yLabel.setText(_translate("Dialog", "y"))
+        self.addButton.setText(_translate("Dialog", "Add item"))
         self.removeButton.setText(_translate("Dialog", "Remove item"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Dialog = QtWidgets.QDialog()
+    ui = Ui_Dialog()
+    ui.setupUi(Dialog)
+    Dialog.show()
+    sys.exit(app.exec_())
