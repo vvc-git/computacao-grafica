@@ -37,32 +37,13 @@ class Window(QMainWindow):
     def teste2(self):
       self.viewport.desloca()
 
-    def setUpViewport(self):
-      i = 0
+    # def setUpViewport(self):
       #self.viewport.widget.setStyleSheet("background-color: gray;")
-     
-
-    def setUpMenu1(self):
-      painter = QPainter(self)
-      painter.setBrush(QColor(200,200,200))
-      painter.drawRect(self.mapToGlobal(self.horizontalLayoutWidget.pos()).x(), self.mapToGlobal(self.horizontalLayoutWidget.pos()).y(), self.horizontalLayoutWidget.width(), self.horizontalLayoutWidget.height())
-
-    
-
-    # Classe reimplementada da QMaindWindow
-    # é chamado automaticamente pelo sistema de event loop do Qt sempre que a janela precisar ser redesenhada.
-    # def paintEvent(self, a0: QPaintEvent | None) -> None:
-    #   # self.setUpMenu1()
-    #   # self.setUpViewport()
-    #   # self.setUpMenu2()
-    #   p1 = Point('p1', (1, 2))
-    #   p1g = GraphicalPoint(p1, self)
-
     
     # Função reimplementada da QMaindWindow
     # é chamado automaticamente pelo sistema de event loop do Qt sempre que a janela precisar ser redesenhada.
     def paintEvent(self, event):
-      self.setUpViewport()
+      # self.setUpViewport()
       painter = QPainter(self)
       for objeto in self.display_file:
           objeto.draw(painter)
