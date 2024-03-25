@@ -67,14 +67,39 @@ class Line(Object):
         self.color =  color
         self.viewport = viewport
 
-    def verifica_limites(self, point):
-        if (point[0] < WINDOW_WIDTH - VIEWPORT_WIDTH):
-            print('esta a esquerda', point)
-            intersec = self.find_intersection_point(point, (300,400), (WINDOW_WIDTH - VIEWPORT_WIDTH,0), (WINDOW_WIDTH - VIEWPORT_WIDTH, VIEWPORT_HEIGHT))
-            print('ponto encontrado adicionado:', intersec)
-            return intersec
+    def check_limit(self, list_points):
+        # Esquerda Ponto 1
+        if (list_points[0][0] < WINDOW_WIDTH - VIEWPORT_WIDTH):
+            print('Esquerda')
+            intersec = self.find_intersection_point(list_points[0], list_points[1], (WINDOW_WIDTH - VIEWPORT_WIDTH, 0), (WINDOW_WIDTH - VIEWPORT_WIDTH, VIEWPORT_HEIGHT))
+            list_points.remove(list_points[0])
+            list_points.append(intersec)
+        
+        # Esquerda Ponto 2
+        if (list_points[1][0] < WINDOW_WIDTH - VIEWPORT_WIDTH):
+            print('Esquerda')
+            intersec = self.find_intersection_point(list_points[0], list_points[1], (WINDOW_WIDTH - VIEWPORT_WIDTH, 0), (WINDOW_WIDTH - VIEWPORT_WIDTH, VIEWPORT_HEIGHT))
+            list_points.remove(list_points[1])
+            list_points.append(intersec)     
+        
+        # Direita Ponto 1
+        if (list_points[0][0] > WINDOW_WIDTH):
+            print('Direita')
+            intersec = self.find_intersection_point(list_points[0], list_points[1], (WINDOW_WIDTH, VIEWPORT_HEIGHT), (WINDOW_WIDTH, 0))
+            list_points.remove(list_points[0])
+            list_points.append(intersec)   
+        
+        # Direita Ponto 2
+        if (list_points[1][0] > WINDOW_WIDTH):
+            intersec = self.find_intersection_point(list_points[0], list_points[1], (WINDOW_WIDTH, VIEWPORT_HEIGHT), (WINDOW_WIDTH, 0))
+            list_points.remove(list_points[1])
+            list_points.append(intersec)
+        
         else:
-            return point
+            print('Dentro do view')
+            return False
+    
+        return True
     
     def find_intersection_point(self, line1_start, line1_end, line2_start, line2_end):
         x1, y1 = line1_start[0], line1_start[1]
@@ -100,15 +125,18 @@ class Line(Object):
         posicaoX1 = Point1[0] + self.viewport.getX()
         posicaoY1 = VIEWPORT_HEIGHT - Point1[1]
 
-        point = self.verifica_limites((posicaoX1, posicaoY1))
-
         posicaoX2 = Point2[0] + WINDOW_WIDTH - VIEWPORT_WIDTH
         posicaoY2 = VIEWPORT_HEIGHT - Point2[1]
 
+        list_point = [(posicaoX1, posicaoY1), ((posicaoX2, posicaoY2))]
+        point = self.check_limit(list_point)
+        
         # Desenha o círculo centrado no ponto
         painter.setPen(self.color)
-        # painter.drawLine(posicaoX1, posicaoY1, posicaoX2, posicaoY2)
-        painter.drawLine(point[0], point[1], posicaoX2, posicaoY2)
+        if point:
+            painter.drawLine(list_point[0][0], list_point[0][1], list_point[1][0], list_point[0][1])
+        else:
+            painter.drawLine(posicaoX1, posicaoY1, posicaoX2, posicaoY2)
 
 # Polígono
 class Wireframe(Object):
@@ -150,16 +178,7 @@ class Wireframe(Object):
                     painter.drawLine(posicaoLastX, posicaoLastY, posicaoFirstX, posicaoFirstY)
 
 
-            
-
-
-        #if (point[0] > VIEWPORT_WIDTH):
-        #    print('esta a direita')
-        #if (point[1] < 0):
-        #    print('esta a acima')
-        #if (point[1] > VIEWPORT_HEIGHT):
-        #    print('esta a abaixo')
-        
+    
 
 
                 

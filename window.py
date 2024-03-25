@@ -19,7 +19,6 @@ class Window(QMainWindow):
       self.setWindowTitle('Computação Gráfica 2D')
       self.resize(WINDOW_WIDTH, WINDOW_HEIGHT)
       self.teste()
-      self.teste2()
 
     # !! APAGAR
     def teste(self):
@@ -27,12 +26,12 @@ class Window(QMainWindow):
         #objeto1 = Point('Point 1', [(0, 0)], QPen(Qt.green, 1.5), self.viewport)  
         #objeto2 = Line('Line X ', [(0, 0), (VIEWPORT_WIDTH, 0)], QPen(Qt.red, 1.5), self.viewport)  # 5 é a largura da linha)
         #objeto3 = Line('Line Y ', [(0, 0), (0, VIEWPORT_HEIGHT)], QPen(Qt.red, 1.5), self.viewport)  # 5 é a largura da linha)
-        objeto4 = Line('Line k ', [(0, 100), (300, 400)], QPen(Qt.red, 1.5), self.viewport)  # 5 é a largura da linha)
+        objeto4 = Line('Line k ', [(500, 0), (600, 200)], QPen(Qt.red, 1.5), self.viewport)  # 5 é a largura da linha)
         #objeto4 = Wireframe('Triangulo', [(0,0), (300, 0), (300, 400), (350, 500)], QPen(Qt.blue, 1.5), self.viewport)
 
         #self.display_file.append(objeto1)
-        # self.display_file.append(objeto2)
-        # self.display_file.append(objeto3)
+        # pself.display_file.append(objeto2)
+        # pself.display_file.append(objeto3)
         self.display_file.append(objeto4)
         #self.display_file.append(objeto4)
     
