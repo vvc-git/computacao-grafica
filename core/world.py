@@ -4,19 +4,20 @@ from core.viewport import Viewport
 from shapes.abstractShape import AbstractShape
 
 class World:
-    def __init__(self, main_window, display_file: List[AbstractShape]):
-        self._main_window = main_window
-        self._display_file = display_file
+    def __init__(self, width, height: List[AbstractShape]):
+        self._display_file = []
+        self._visible = []
 
-        self._bottom_left = QPointF(-100, -100)
-        self._up_right = QPointF(100, 100)
+        # Área visível
+        self._bottom_left = QPointF(0, 0)
+        self._up_right = QPointF(width, height)
 
     def set_viewport(self, viewport: Viewport):
-        self.viewport = viewport
+        self._viewport = viewport
 
     def get_transformed_shapes(self, viewport_geometry: Tuple[float, float, float, float]) -> List[Tuple[AbstractShape, Tuple[int, int]]]:
         transformed_shapes = []
-        for shape in self._display_file:
+        for shape in self._visible:
             transformed_coords = [self.to_viewport(coord, viewport_geometry) for coord in shape._points]
             transformed_shapes.append((shape, transformed_coords))
         return transformed_shapes
@@ -41,7 +42,6 @@ class World:
         xnew = self._up_right.x() + 10
         self._up_right.setX(xnew)
         self._main_window.update()
-        print('botao esquerdo')
     
     def shift_right(self)-> None:
         xnew = self._bottom_left.x() - 10
@@ -51,7 +51,6 @@ class World:
         self._up_right.setX(xnew)
 
         self._main_window.update()
-        print('botao direito')
 
     def shift_up(self) -> None:
         ynew = self._bottom_left.y() - 10
@@ -61,7 +60,6 @@ class World:
         self._up_right.setY(ynew)
 
         self._main_window.update()
-        print('botao cima')
     
     def shift_down(self) -> None:
         ynew = self._bottom_left.y() + 10
@@ -71,7 +69,6 @@ class World:
         self._up_right.setY(ynew)
 
         self._main_window.update()
-        print('botao baixo')
 
     def zoom_in(self) -> None:
         self._bottom_left.setX(self._bottom_left.x() + 10)
@@ -81,6 +78,11 @@ class World:
         self._up_right.setY(self._up_right.y() - 10)
 
         self._main_window.update()
-        print('zoom')
 
-    
+    def update_visible(self):
+        for object in self._display_file:
+            for point in object.get_points():
+                x, y = point
+                if(x >= self._bottom_left.x() and x <= self._up_right.x()):
+                    if(y >= self._bottom_left.y() and y <= self._up_right.y()):
+                        self._visible.append(object)

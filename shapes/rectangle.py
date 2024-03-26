@@ -64,9 +64,3 @@ class Rectangle(AbstractShape):
         painter.drawLine(top_right_x, top_right_y, top_left_x, top_left_y)
         painter.drawLine(top_left_x, top_left_y, bottom_left_x, bottom_left_y)
 
-        print(f"Bottom Left: ({bottom_left_x}, {bottom_left_y})")
-        print(f"Bottom Right: ({bottom_right_x}, {bottom_right_y})")
-        print(f"Top Right: ({top_right_x}, {top_right_y})")
-        print(f"Top Left: ({top_left_x}, {top_left_y})")
-        print(f"Dimensions: ({width} x {height})")
-
