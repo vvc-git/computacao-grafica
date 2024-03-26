@@ -2,7 +2,7 @@ import uuid
 from abc import ABC, abstractmethod
 from typing import List, Tuple
 
-from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QColor, QPainter
 
 from shapes.shapeType import ShapeType
 
@@ -67,5 +67,5 @@ class AbstractShape(ABC):
 
 
     @abstractmethod
-    def draw(self):
+    def draw(self, painter: QPainter, points: List[Tuple[int, int]]) -> None:
         pass

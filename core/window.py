@@ -36,7 +36,7 @@ class Window(QMainWindow):
         self._terminal = self._ui.terminalWidget
         self._options = self._ui.optionsWidget
         
-        self._world = World(self, self.display_file)
+        self._world = World(self, self._display_file)
 
 
         self._viewport = Viewport(self, self._world, parent=self)
@@ -192,7 +192,7 @@ class Window(QMainWindow):
         self.ui.update_zoom_label_text(self.zoom_slider.value())
     
     def add_objects_list(self, shape):
-        self._world.display_file.append(shape)
+        self._world._display_file.append(shape)
         self.viewport.shapes.append(shape)
         self.objects.addItem(shape.name)
         self.update()
@@ -253,13 +253,7 @@ class Window(QMainWindow):
 
             wireframe = Wireframe(points, "Wireframe")
             self.add_objects_list(wireframe)
-
-    def build_frame(self, parent, geometry):
-        frame = QFrame(parent)
-        frame.setGeometry(geometry[0], geometry[1], geometry[2], geometry[3])
-        frame.setFrameStyle(QFrame.WinPanel | QFrame.Plain)
-        return frame 
-    
+            
     def paintEvent(self, event):
       painter = QPainter(self)
       transformed_shapes = self._world.get_transformed_shapes((self._viewport._bottom_left.x(),

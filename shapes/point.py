@@ -11,7 +11,7 @@ class Point(AbstractShape):
         self._type = ShapeType.POINT
 
     def draw(self, painter, points):
-        x, y = self.points[0]
+        x, y = points[0]
         #painter.setPen(self.color)
         #painter.setBrush(QBrush(self.color))
         #painter.drawPoint(x, y)

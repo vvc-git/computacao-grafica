@@ -18,7 +18,6 @@ class Wireframe(AbstractShape):
         (xf, yf) = (xp, yp)  = points[0]
         print((xf, yf))
 
-
         for i, (x, y) in enumerate(points):
             if i > 0:
                 painter.drawLine(xp, yp, x, y)

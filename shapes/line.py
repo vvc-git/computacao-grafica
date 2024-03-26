@@ -1,6 +1,6 @@
 from typing import Tuple
 
-from PyQt5.QtGui import QColor, QPainter
+from PyQt5.QtGui import QColor
 
 from shapes.shapeType import ShapeType
 from shapes.abstractShape import AbstractShape
@@ -19,6 +19,6 @@ class Line(AbstractShape):
         painter.drawLine(start_x, start_y, end_x, end_y)
         print(f"Drawing a line from ({start_x}, {start_y}) to ({end_x}, {end_y})")
 
-
+    
     def get_points(self):
         return self._points

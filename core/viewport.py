@@ -15,9 +15,9 @@ class Viewport(QWidget):
     def __init__(self, window, world, parent=None):
         super().__init__()
 
-        self.window = window
-        self.world = world
-        self.parent = parent
+        self._window = window
+        self._world = world
+        self._parent = parent
 
         # self._widget = viewport_ui
         self._limitX = WINDOW_WIDTH - VIEWPORT_WIDTH
