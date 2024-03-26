@@ -21,12 +21,12 @@ class Window(QMainWindow):
       self.world = World(self, self.display_file)
 
       # Create Viewport
-      # ! TESTE
-      view_frame = self.__build_frame(self, VIEW_FRAME_GEOMETRY)
+      view_frame = self.build_frame(self, VIEW_FRAME_GEOMETRY)
       self.__view_frame = view_frame
       self.viewport = Viewport(self, self.world, parent=self.__view_frame)
       self.viewport.setGeometry(VIEWPORT_GEOMETRY)
       
+      # World
       self.world.set_viewport(self.viewport)
       self.setWindowTitle('Computação Gráfica 2D')
       self.resize(WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -43,7 +43,7 @@ class Window(QMainWindow):
       self.ui.zoomHorizontalSlider.setValue(100)
       self.ui.zoomHorizontalSlider.setTickInterval(10)
       self.ui.zoomHorizontalSlider.setTickPosition(QSlider.TicksBelow)
-      self.ui.zoomHorizontalSlider.valueChanged.connect(self.updateZoom)
+      self.ui.zoomHorizontalSlider.valueChanged.connect(self.update_zoom)
 
       self.teste()
 
@@ -71,17 +71,14 @@ class Window(QMainWindow):
       for shape, transformed_coords in transformed_shapes:
           shape.draw(painter, transformed_coords)
 
-    def __build_frame(self, parent: wdg.QWidget, geometry: tuple[int]) -> wdg.QFrame:
+    def build_frame(self, parent, geometry):
         frame = wdg.QFrame(parent)
         frame.setGeometry(geometry[0], geometry[1], geometry[2], geometry[3])
         frame.setFrameStyle(wdg.QFrame.WinPanel | wdg.QFrame.Plain)
         return frame 
     
-    def update_paint_event(self):
-        # Atualiza o paintEvent
-        self.update()
-        
-    def updateZoom(self, value):
+
+    def update_zoom(self, value):
         # Atualiza o valor exibido no QLabel com o valor do slider
         self.ui.zoomLabel.setText("Zoom: {}%".format(value))
       

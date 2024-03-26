@@ -8,7 +8,8 @@ class Viewport(QWidget):
       self.window = window
       self.world = world
       self.parent = parent
+      
       # self.parent.setStyleSheet("background-color: gray;")
-      print(parent.pos() + parent.rect().bottomLeft())
+      print(parent)
       self._bottom_left = QPointF(0, 0)
       self._up_right = QPointF(parent.width(), parent.height())
