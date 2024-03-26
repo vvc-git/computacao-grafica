@@ -17,7 +17,6 @@ class Line(AbstractShape):
         end_x, end_y = points[1]
         painter.setPen(self.color)
         painter.drawLine(start_x, start_y, end_x, end_y)
-        print(f"Drawing a line from ({start_x}, {start_y}) to ({end_x}, {end_y})")
 
     
     def get_points(self):

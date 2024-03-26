@@ -17,7 +17,6 @@ class World:
 
     def get_transformed_shapes(self, viewport_geometry: Tuple[float, float, float, float]) -> List[Tuple[AbstractShape, Tuple[int, int]]]:
         transformed_shapes = []
-        print("visible in get_transformed_shapes", self._visible)
         for shape in self._visible:
             transformed_coords = [self.to_viewport(coord, viewport_geometry) for coord in shape._points]
             transformed_shapes.append((shape, transformed_coords))
@@ -43,7 +42,6 @@ class World:
         xnew = self._up_right.x() + 10
         self._up_right.setX(xnew)
         self._main_window.update()
-        print('botao esquerdo')
     
     def shift_right(self)-> None:
         xnew = self._bottom_left.x() - 10
@@ -53,7 +51,6 @@ class World:
         self._up_right.setX(xnew)
 
         self._main_window.update()
-        print('botao direito')
 
     def shift_up(self) -> None:
         ynew = self._bottom_left.y() - 10
@@ -63,7 +60,6 @@ class World:
         self._up_right.setY(ynew)
 
         self._main_window.update()
-        print('botao cima')
     
     def shift_down(self) -> None:
         ynew = self._bottom_left.y() + 10
@@ -73,7 +69,6 @@ class World:
         self._up_right.setY(ynew)
 
         self._main_window.update()
-        print('botao baixo')
 
     def zoom_in(self) -> None:
         self._bottom_left.setX(self._bottom_left.x() + 10)
@@ -83,18 +78,11 @@ class World:
         self._up_right.setY(self._up_right.y() - 10)
 
         self._main_window.update()
-        print('zoom')
 
     def update_visible(self):
-        print("visivel display_file", self._display_file)
         for object in self._display_file:
             for point in object.get_points():
                 x, y = point
-                print('x e bottom_left_x()', x, self._bottom_left.x())
-                print('x e up_right()', x, self._up_right.x())
-                print('y e bottom_left_y()', y, self._bottom_left.y())
-                print('y e up_right_y()', y, self._up_right.y())
                 if(x >= self._bottom_left.x() and x <= self._up_right.x()):
                     if(y >= self._bottom_left.y() and y <= self._up_right.y()):
                         self._visible.append(object)
-                        print("visivel _visible", self._visible)

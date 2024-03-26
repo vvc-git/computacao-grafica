@@ -72,7 +72,6 @@ class Viewport(QWidget):
             self._y = 0
 
     def paintEvent(self, event):
-      print('entrouuu')
       painter = QPainter(self)
       painter.setPen(QPen(Qt.white, 10, Qt.SolidLine))
       painter.setBrush(QBrush(Qt.white, Qt.SolidPattern))
@@ -82,5 +81,4 @@ class Viewport(QWidget):
                                                                        self._up_right.y()))
 
       for shape, transformed_coords in transformed_shapes:
-          print('Desenhando...')
           shape.draw(painter, transformed_coords)

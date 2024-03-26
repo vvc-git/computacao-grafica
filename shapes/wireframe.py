@@ -13,10 +13,8 @@ class Wireframe(AbstractShape):
 
 
     def draw(self, painter, points):
-        print("Drawing a wireframe with points:")
         painter.setPen(self.color)
         (xf, yf) = (xp, yp)  = points[0]
-        print((xf, yf))
 
         for i, (x, y) in enumerate(points):
             if i > 0:

@@ -31,6 +31,3 @@ class Point(AbstractShape):
         
         # Desenha o círculo centrado no ponto
         painter.drawEllipse(ponto_rect)
-
-
-        print(f"Drawing a point at ({x}, {y})")
