@@ -41,42 +41,52 @@ class World:
         return (int(xvp), int(yvp))
     
     def shift_left(self):
-        xnew = self.__bottom_left.x() + 50
+        xnew = self.__bottom_left.x() + 10
         self.__bottom_left.setX(xnew)
 
-        xnew = self.__up_right.x() + 50
+        xnew = self.__up_right.x() + 10
         self.__up_right.setX(xnew)
         self._main_window.update_paint_event()
         print('botao esquerdo')
     
     def shift_right(self):
-        xnew = self.__bottom_left.x() - 50
+        xnew = self.__bottom_left.x() - 10
         self.__bottom_left.setX(xnew)
 
-        xnew = self.__up_right.x() - 50
+        xnew = self.__up_right.x() - 10
         self.__up_right.setX(xnew)
 
         self._main_window.update_paint_event()
         print('botao direito')
 
     def shift_up(self):
-        ynew = self.__bottom_left.y() - 50
+        ynew = self.__bottom_left.y() - 10
         self.__bottom_left.setY(ynew)
 
-        ynew = self.__up_right.y() - 50
+        ynew = self.__up_right.y() - 10
         self.__up_right.setY(ynew)
 
         self._main_window.update_paint_event()
         print('botao cima')
     
     def shift_down(self):
-        ynew = self.__bottom_left.y() + 50
+        ynew = self.__bottom_left.y() + 10
         self.__bottom_left.setY(ynew)
 
-        ynew = self.__up_right.y() + 50
+        ynew = self.__up_right.y() + 10
         self.__up_right.setY(ynew)
 
         self._main_window.update_paint_event()
         print('botao baixo')
+
+    def zoom_in(self):
+        self.__bottom_left.setX(self.__bottom_left.x() + 10)
+        self.__bottom_left.setY(self.__bottom_left.y() + 10)
+
+        self.__up_right.setX(self.__up_right.x() - 10)
+        self.__up_right.setY(self.__up_right.y() - 10)
+
+        self._main_window.update_paint_event()
+        print('zoom')
 
     

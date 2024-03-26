@@ -1,10 +1,10 @@
 from designer import Ui_MainWindow
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QSlider
 from PyQt5.QtGui import QPaintEvent, QPainter, QColor
 from PyQt5.QtGui import QPen
 from PyQt5.QtCore import Qt, QPointF
 from object import Point, Line, Wireframe
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout
 from constant import WINDOW_HEIGHT, WINDOW_WIDTH, VIEWPORT_HEIGHT, VIEWPORT_WIDTH, VIEWPORT_X, VIEWPORT_GEOMETRY, VIEW_FRAME_GEOMETRY
 from world import World
 from viewport import Viewport
@@ -37,22 +37,28 @@ class Window(QMainWindow):
       self.ui.upButton.clicked.connect(self.world.shift_up)
       self.ui.downButton.clicked.connect(self.world.shift_down)
 
+      # Zoom 
+      self.ui.zoomHorizontalSlider.setMinimum(50)
+      self.ui.zoomHorizontalSlider.setMaximum(200)
+      self.ui.zoomHorizontalSlider.setValue(100)
+      self.ui.zoomHorizontalSlider.setTickInterval(10)
+      self.ui.zoomHorizontalSlider.setTickPosition(QSlider.TicksBelow)
+      self.ui.zoomHorizontalSlider.valueChanged.connect(self.updateZoom)
+
       self.teste()
 
     # !! APAGAR
     def teste(self):
-        # Adicione quantos objetos gráficos você quiser aqui
-        objeto1 = Point('Point 1', [QPointF(0, -100)], QPen(Qt.green, 1.5), self.viewport) 
+      # Adicione quantos objetos gráficos você quiser aqui
+      objeto1 = Point('Point 1', [QPointF(0, -100)], QPen(Qt.green, 1.5), self.viewport) 
 
-        objeto4 = Line('Line x ', [QPointF(0, self.viewport._bottom_left.y()), QPointF(0,0)], QPen(Qt.red, 1.5), self.viewport)  # 5 é a largura da linha)
-        objeto5 = Line('Line y ', [QPointF(0, 0), QPointF(100, 200)], QPen(Qt.red, 1.5), self.viewport) 
+      objeto4 = Line('Line x ', [QPointF(0, self.viewport._bottom_left.y()), QPointF(0,0)], QPen(Qt.red, 1.5), self.viewport)  # 5 é a largura da linha)
+      objeto5 = Line('Line y ', [QPointF(0, 0), QPointF(100, 200)], QPen(Qt.red, 1.5), self.viewport) 
 
-        self.display_file.append(objeto1)
-        self.display_file.append(objeto5)
-
-
-    def teste2(self):
-      self.viewport.desloca()
+      self.display_file.append(objeto1)
+      self.display_file.append(objeto5)
+      print('teste foi chamado')
+      self.update
   
     def paintEvent(self, event):
       # self.setUpViewport()
@@ -74,6 +80,15 @@ class Window(QMainWindow):
     def update_paint_event(self):
         # Atualiza o paintEvent
         self.update()
+        
+    def updateZoom(self, value):
+        # Atualiza o valor exibido no QLabel com o valor do slider
+        self.ui.zoomLabel.setText("Zoom: {}%".format(value))
+      
+        print(value)
+        # Chamada para a função que aplica o zoom com base no valor do slider
+        # Substitua esta chamada pela sua função de aplicação de zoom
+        self.world.zoom_in()
       
     
        
