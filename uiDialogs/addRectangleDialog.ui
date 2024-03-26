@@ -17,7 +17,7 @@
    <item>
     <widget class="QLabel" name="message1Label">
      <property name="text">
-      <string>Add the  lower left coordinate (x, y) and width,</string>
+      <string>Add the lower left coordinate (x, y) and width,</string>
      </property>
     </widget>
    </item>

@@ -4,7 +4,6 @@ from PyQt5.QtGui import QPen
 from constant import WINDOW_WIDTH, VIEWPORT_HEIGHT, VIEWPORT_WIDTH, VIEWPORT_X
 
 
-
 class Object(ABC):
     @abstractmethod
     def __init__(self):
@@ -96,7 +95,7 @@ class Line(Object):
             list_points.append(intersec)
         
         else:
-            print('Dentro do view')
+            #print('Dentro do view')
             return False
     
         return True
