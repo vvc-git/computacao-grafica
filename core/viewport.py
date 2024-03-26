@@ -1,0 +1,83 @@
+from typing import List
+
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtCore import QPointF, Qt
+from PyQt5.QtGui import QPainter, QPen
+
+from shapes.abstractShape import AbstractShape
+from utils.constant import WINDOW_HEIGHT, WINDOW_WIDTH, VIEWPORT_HEIGHT, VIEWPORT_WIDTH
+
+from shapes.point import Point
+from shapes.line import Line
+
+
+class Viewport(QWidget):  
+    def __init__(self, window, world, parent=None):
+        super().__init__()
+
+        self.window = window
+        self.world = world
+        self.parent = parent
+
+        # self._widget = viewport_ui
+        self._limitX = WINDOW_WIDTH - VIEWPORT_WIDTH
+        self._limitY = WINDOW_HEIGHT - VIEWPORT_HEIGHT
+        self._x = self._limitX
+        self._y = self._limitY
+        self._shapes: List[AbstractShape] = []
+
+        self._bottom_left = QPointF(0, 0)
+        self._up_right = QPointF(900, 900)
+
+    @property
+    def shapes(self) -> List[AbstractShape]:
+        return self._shapes
+
+
+    @shapes.setter
+    def shapes(self, value: List[AbstractShape]):
+        self._shapes = value
+
+
+    @property
+    def limitX(self):
+        return self._limitX
+
+
+    @property
+    def limitY(self):
+        return self._limitY
+
+
+    @property
+    def x(self):
+        return self._x
+
+
+    @property
+    def y(self):
+        return self._y
+
+
+    def paintEvent(self, event):
+      print('painterEvent')
+      painter = QPainter(self)
+      transformed_shapes = self.world.get_transformed_shapes((self._bottom_left.x(),
+                                                                       self._bottom_left.y(),
+                                                                       self._up_right.x(),
+                                                                       self._up_right.y()))
+
+      for shape, transformed_coords in transformed_shapes:
+          shape.draw(painter, transformed_coords)
+
+    def desloca(self):
+        # Verifica se o deslocamento não ultrapassa os limites
+        if self._x - 200 >= 0:
+            self._x -= 200
+        else:
+            self._x = 0
+
+        if self._y - 200 >= 0:
+            self._y -= 200
+        else:
+            self._y = 0
