@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QRect
+from PyQt5.QtGui import QColor
 
 WINDOW_WIDTH = 1000
 WINDOW_HEIGHT = 800
@@ -7,3 +7,4 @@ VIEWPORT_HEIGHT = 600
 VIEWPORT_X = 0
 VIEWPORT_Y = 0
 POINT_SIZE = 2
+DEFAULT_SHAPE_COLOR = QColor(46, 194, 126)

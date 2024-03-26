@@ -2,36 +2,107 @@
 <ui version="4.0">
  <class>Dialog</class>
  <widget class="QDialog" name="Dialog">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>364</width>
-    <height>199</height>
+    <width>450</width>
+    <height>300</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>450</width>
+    <height>300</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>450</width>
+    <height>300</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Line</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,100,0">
    <item>
-    <widget class="QLabel" name="message1Label">
+    <widget class="QLabel" name="messageLabel">
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
      <property name="text">
-      <string>Add the initial (x1, y1) and final (x2, y2) coordinates</string>
+      <string>Add the initial (x1, y1) and final (x2, y2) coordinates of the line:</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="message2Label">
-     <property name="text">
-      <string>of the line</string>
+    <layout class="QHBoxLayout" name="infoHorizontalLayout">
+     <property name="topMargin">
+      <number>11</number>
      </property>
-    </widget>
+     <item>
+      <widget class="QLabel" name="nameLabel">
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Name</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="nameLineEdit"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="colorLabel">
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Color</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="colorButton">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(46, 194, 126);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <layout class="QGridLayout" name="addPoinstLineGridLayout" columnstretch="0,100,0,100" columnminimumwidth="0,100,0,100">
+     <property name="topMargin">
+      <number>6</number>
+     </property>
      <item row="0" column="0">
       <widget class="QLabel" name="x1Label">
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>x1</string>
        </property>
@@ -39,13 +110,21 @@
      </item>
      <item row="0" column="1">
       <widget class="QSpinBox" name="x1SpinBox">
+       <property name="minimum">
+        <number>-1000</number>
+       </property>
        <property name="maximum">
-        <number>99999</number>
+        <number>1000</number>
        </property>
       </widget>
      </item>
      <item row="0" column="2">
       <widget class="QLabel" name="y1Label">
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>y1</string>
        </property>
@@ -53,13 +132,21 @@
      </item>
      <item row="0" column="3">
       <widget class="QSpinBox" name="y1SpinBox">
+       <property name="minimum">
+        <number>-1000</number>
+       </property>
        <property name="maximum">
-        <number>99999</number>
+        <number>1000</number>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="x2Label">
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>x2</string>
        </property>
@@ -67,13 +154,21 @@
      </item>
      <item row="1" column="1">
       <widget class="QSpinBox" name="x2SpinBox">
+       <property name="minimum">
+        <number>-1000</number>
+       </property>
        <property name="maximum">
-        <number>99999</number>
+        <number>1000</number>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
       <widget class="QLabel" name="y2Label">
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>y2</string>
        </property>
@@ -81,18 +176,33 @@
      </item>
      <item row="1" column="3">
       <widget class="QSpinBox" name="y2SpinBox">
+       <property name="minimum">
+        <number>-1000</number>
+       </property>
        <property name="maximum">
-        <number>99999</number>
+        <number>1000</number>
        </property>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <widget class="QWidget" name="widget" native="true"/>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>100</height>
+      </size>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>

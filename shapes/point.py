@@ -3,10 +3,11 @@ from PyQt5.QtCore import QRect
 
 from shapes.shapeType import ShapeType
 from shapes.abstractShape import AbstractShape
+from utils.constant import DEFAULT_SHAPE_COLOR
 
 
 class Point(AbstractShape):
-    def __init__(self, x: int, y: int, name: str, color: QColor = QColor(0, 0, 0)):
+    def __init__(self, x: int, y: int, name: str, color: QColor = DEFAULT_SHAPE_COLOR):
         super().__init__([(x, y)], name, color)
         self._type = ShapeType.POINT
 

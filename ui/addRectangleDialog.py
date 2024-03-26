@@ -10,48 +10,80 @@
 
 from PyQt5 import QtCore, QtWidgets
 
+from utils.constant import DEFAULT_SHAPE_COLOR
+
 
 class AddRectangleDialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(333, 198)
+        Dialog.setWindowModality(QtCore.Qt.ApplicationModal)
+        Dialog.resize(450, 300)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(Dialog.sizePolicy().hasHeightForWidth())
+        Dialog.setSizePolicy(sizePolicy)
+        Dialog.setMinimumSize(QtCore.QSize(450, 300))
+        Dialog.setMaximumSize(QtCore.QSize(450, 300))
         self.verticalLayout = QtWidgets.QVBoxLayout(Dialog)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.message1Label = QtWidgets.QLabel(Dialog)
-        self.message1Label.setObjectName("message1Label")
-        self.verticalLayout.addWidget(self.message1Label)
-        self.message2Label = QtWidgets.QLabel(Dialog)
-        self.message2Label.setObjectName("message2Label")
-        self.verticalLayout.addWidget(self.message2Label)
+        self.messageLabel = QtWidgets.QLabel(Dialog)
+        self.messageLabel.setObjectName("messageLabel")
+        self.verticalLayout.addWidget(self.messageLabel)
+        self.infoHorizontalLayout = QtWidgets.QHBoxLayout()
+        self.infoHorizontalLayout.setContentsMargins(-1, 11, -1, -1)
+        self.infoHorizontalLayout.setObjectName("infoHorizontalLayout")
+        self.nameLabel = QtWidgets.QLabel(Dialog)
+        self.nameLabel.setObjectName("nameLabel")
+        self.infoHorizontalLayout.addWidget(self.nameLabel)
+        self.nameLineEdit = QtWidgets.QLineEdit(Dialog)
+        self.nameLineEdit.setObjectName("nameLineEdit")
+        self.infoHorizontalLayout.addWidget(self.nameLineEdit)
+        self.colorLabel = QtWidgets.QLabel(Dialog)
+        self.colorLabel.setObjectName("colorLabel")
+        self.infoHorizontalLayout.addWidget(self.colorLabel)
+        self.colorButton = QtWidgets.QPushButton(Dialog)
+
+        #TODO: O código gerado pela interface não usa a constante, caso atualize, use a constante depois
+        self.colorButton.setStyleSheet("background-color: " + DEFAULT_SHAPE_COLOR.name() + ";")
+
+        self.colorButton.setText("")
+        self.colorButton.setObjectName("colorButton")
+        self.infoHorizontalLayout.addWidget(self.colorButton)
+        self.verticalLayout.addLayout(self.infoHorizontalLayout)
         self.rectangleConfigurationGridLayout = QtWidgets.QGridLayout()
-        self.rectangleConfigurationGridLayout.setContentsMargins(-1, 0, -1, -1)
+        self.rectangleConfigurationGridLayout.setContentsMargins(-1, 6, -1, -1)
         self.rectangleConfigurationGridLayout.setObjectName("rectangleConfigurationGridLayout")
         self.xLabel = QtWidgets.QLabel(Dialog)
         self.xLabel.setObjectName("xLabel")
         self.rectangleConfigurationGridLayout.addWidget(self.xLabel, 0, 0, 1, 1)
         self.xSpinBox = QtWidgets.QSpinBox(Dialog)
-        self.xSpinBox.setMaximum(99999)
+        self.xSpinBox.setMinimum(-1000)
+        self.xSpinBox.setMaximum(1000)
         self.xSpinBox.setObjectName("xSpinBox")
         self.rectangleConfigurationGridLayout.addWidget(self.xSpinBox, 0, 1, 1, 1)
         self.yLabel = QtWidgets.QLabel(Dialog)
         self.yLabel.setObjectName("yLabel")
         self.rectangleConfigurationGridLayout.addWidget(self.yLabel, 0, 2, 1, 1)
         self.ySpinBox = QtWidgets.QSpinBox(Dialog)
-        self.ySpinBox.setMaximum(99999)
+        self.ySpinBox.setMinimum(-1000)
+        self.ySpinBox.setMaximum(1000)
         self.ySpinBox.setObjectName("ySpinBox")
         self.rectangleConfigurationGridLayout.addWidget(self.ySpinBox, 0, 3, 1, 1)
         self.widthLabel = QtWidgets.QLabel(Dialog)
         self.widthLabel.setObjectName("widthLabel")
         self.rectangleConfigurationGridLayout.addWidget(self.widthLabel, 1, 0, 1, 1)
         self.widhtSpinBox = QtWidgets.QSpinBox(Dialog)
-        self.widhtSpinBox.setMaximum(99999)
+        self.widhtSpinBox.setMinimum(1)
+        self.widhtSpinBox.setMaximum(1000)
         self.widhtSpinBox.setObjectName("widhtSpinBox")
         self.rectangleConfigurationGridLayout.addWidget(self.widhtSpinBox, 1, 1, 1, 1)
         self.heightLabel = QtWidgets.QLabel(Dialog)
         self.heightLabel.setObjectName("heightLabel")
         self.rectangleConfigurationGridLayout.addWidget(self.heightLabel, 1, 2, 1, 1)
         self.heightSpinBox = QtWidgets.QSpinBox(Dialog)
-        self.heightSpinBox.setMaximum(99999)
+        self.heightSpinBox.setMinimum(1)
+        self.heightSpinBox.setMaximum(1000)
         self.heightSpinBox.setObjectName("heightSpinBox")
         self.rectangleConfigurationGridLayout.addWidget(self.heightSpinBox, 1, 3, 1, 1)
         self.rectangleConfigurationGridLayout.setColumnMinimumWidth(1, 100)
@@ -60,6 +92,7 @@ class AddRectangleDialog(object):
         self.rectangleConfigurationGridLayout.setColumnStretch(3, 100)
         self.verticalLayout.addLayout(self.rectangleConfigurationGridLayout)
         self.widget = QtWidgets.QWidget(Dialog)
+        self.widget.setMinimumSize(QtCore.QSize(0, 100))
         self.widget.setObjectName("widget")
         self.verticalLayout.addWidget(self.widget)
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
@@ -78,13 +111,22 @@ class AddRectangleDialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Rectangle"))
-        self.message1Label.setText(_translate("Dialog", "Add the lower left coordinate (x, y) and width,"))
-        self.message2Label.setText(_translate("Dialog", "height of the rectangle:"))
+        self.messageLabel.setText(_translate("Dialog", "Add the lower left coordinate, width, height of the rectangle:"))
+        self.nameLabel.setText(_translate("Dialog", "Name"))
+        self.colorLabel.setText(_translate("Dialog", "Color"))
         self.xLabel.setText(_translate("Dialog", "x"))
         self.yLabel.setText(_translate("Dialog", "y"))
         self.widthLabel.setText(_translate("Dialog", "width"))
         self.heightLabel.setText(_translate("Dialog", "height"))
 
+
+    def get_name_value(self):
+        return self.nameLineEdit.text()
+    
+
+    def get_color_value(self):
+        return self.colorButton
+    
 
     def get_x_value(self):
         return self.xSpinBox.value()

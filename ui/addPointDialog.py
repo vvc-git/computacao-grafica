@@ -10,41 +10,79 @@
 
 from PyQt5 import QtCore, QtWidgets
 
+from utils.constant import DEFAULT_SHAPE_COLOR
+
 
 class AddPointDialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(279, 134)
+        Dialog.setWindowModality(QtCore.Qt.ApplicationModal)
+        Dialog.resize(450, 300)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(Dialog.sizePolicy().hasHeightForWidth())
+        Dialog.setSizePolicy(sizePolicy)
+        Dialog.setMinimumSize(QtCore.QSize(450, 300))
+        Dialog.setMaximumSize(QtCore.QSize(450, 300))
         self.verticalLayout = QtWidgets.QVBoxLayout(Dialog)
         self.verticalLayout.setObjectName("verticalLayout")
         self.messageLabel = QtWidgets.QLabel(Dialog)
         self.messageLabel.setObjectName("messageLabel")
         self.verticalLayout.addWidget(self.messageLabel)
+        self.infoHorizontalLayout = QtWidgets.QHBoxLayout()
+        self.infoHorizontalLayout.setContentsMargins(-1, 11, -1, -1)
+        self.infoHorizontalLayout.setObjectName("infoHorizontalLayout")
+        self.nameLabel = QtWidgets.QLabel(Dialog)
+        self.nameLabel.setObjectName("nameLabel")
+        self.infoHorizontalLayout.addWidget(self.nameLabel)
+        self.nameLineEdit = QtWidgets.QLineEdit(Dialog)
+        self.nameLineEdit.setObjectName("nameLineEdit")
+        self.infoHorizontalLayout.addWidget(self.nameLineEdit)
+        self.colorLabel = QtWidgets.QLabel(Dialog)
+        self.colorLabel.setObjectName("colorLabel")
+        self.infoHorizontalLayout.addWidget(self.colorLabel)
+        self.colorButton = QtWidgets.QPushButton(Dialog)
+        
+        #TODO: O código gerado pela interface não usa a constante, caso atualize, use a constante depois
+        self.colorButton.setStyleSheet("background-color: " + DEFAULT_SHAPE_COLOR.name() + ";")
+
+        self.colorButton.setText("")
+        self.colorButton.setObjectName("colorButton")
+        self.infoHorizontalLayout.addWidget(self.colorButton)
+        self.verticalLayout.addLayout(self.infoHorizontalLayout)
         self.addPointHorizontalLayout = QtWidgets.QHBoxLayout()
-        self.addPointHorizontalLayout.setContentsMargins(-1, 0, 0, 35)
+        self.addPointHorizontalLayout.setContentsMargins(-1, 6, 0, 0)
         self.addPointHorizontalLayout.setObjectName("addPointHorizontalLayout")
         self.xLabel = QtWidgets.QLabel(Dialog)
         self.xLabel.setObjectName("xLabel")
         self.addPointHorizontalLayout.addWidget(self.xLabel)
         self.xSpinBox = QtWidgets.QSpinBox(Dialog)
-        self.xSpinBox.setMaximum(99999)
+        self.xSpinBox.setMinimum(-1000)
+        self.xSpinBox.setMaximum(1000)
         self.xSpinBox.setObjectName("xSpinBox")
         self.addPointHorizontalLayout.addWidget(self.xSpinBox)
         self.yLabel = QtWidgets.QLabel(Dialog)
         self.yLabel.setObjectName("yLabel")
         self.addPointHorizontalLayout.addWidget(self.yLabel)
         self.ySpinBox = QtWidgets.QSpinBox(Dialog)
-        self.ySpinBox.setMaximum(99999)
+        self.ySpinBox.setMinimum(-1000)
+        self.ySpinBox.setMaximum(1000)
         self.ySpinBox.setObjectName("ySpinBox")
         self.addPointHorizontalLayout.addWidget(self.ySpinBox)
         self.addPointHorizontalLayout.setStretch(1, 100)
         self.addPointHorizontalLayout.setStretch(3, 100)
         self.verticalLayout.addLayout(self.addPointHorizontalLayout)
+        self.widget = QtWidgets.QWidget(Dialog)
+        self.widget.setMinimumSize(QtCore.QSize(0, 100))
+        self.widget.setObjectName("widget")
+        self.verticalLayout.addWidget(self.widget)
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
         self.verticalLayout.addWidget(self.buttonBox)
+        self.verticalLayout.setStretch(3, 100)
 
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(Dialog.accept) # type: ignore
@@ -56,10 +94,20 @@ class AddPointDialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Point"))
         self.messageLabel.setText(_translate("Dialog", "Add the coordinates (x, y) of the point:"))
+        self.nameLabel.setText(_translate("Dialog", "Name"))
+        self.colorLabel.setText(_translate("Dialog", "Color"))
         self.xLabel.setText(_translate("Dialog", "x"))
         self.yLabel.setText(_translate("Dialog", "y"))
 
    
+    def get_name_value(self):
+        return self.nameLineEdit.text()
+    
+
+    def get_color_value(self):
+        return self.colorButton
+    
+
     def get_x_value(self):
         return self.xSpinBox.value()
 

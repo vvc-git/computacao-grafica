@@ -4,10 +4,11 @@ from PyQt5.QtGui import QColor
 
 from shapes.shapeType import ShapeType
 from shapes.abstractShape import AbstractShape
+from utils.constant import DEFAULT_SHAPE_COLOR
 
 
 class Wireframe(AbstractShape):
-    def __init__(self, points: List[Tuple[int, int]], name: str, color: QColor = QColor(255, 0, 0)):
+    def __init__(self, points: List[Tuple[int, int]], name: str, color: QColor = DEFAULT_SHAPE_COLOR):
         super().__init__(points, name, color)
         self._type = ShapeType.WIREFRAME
 

@@ -9,26 +9,57 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QListWidgetItem
-from PyQt5.QtCore import Qt
+
+from utils.constant import DEFAULT_SHAPE_COLOR
 
 
 class AddWireframeDialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 300)
+        Dialog.setWindowModality(QtCore.Qt.ApplicationModal)
+        Dialog.resize(450, 450)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(Dialog.sizePolicy().hasHeightForWidth())
+        Dialog.setSizePolicy(sizePolicy)
+        Dialog.setMinimumSize(QtCore.QSize(450, 450))
+        Dialog.setMaximumSize(QtCore.QSize(450, 450))
         self.verticalLayout = QtWidgets.QVBoxLayout(Dialog)
         self.verticalLayout.setObjectName("verticalLayout")
         self.messageLabel = QtWidgets.QLabel(Dialog)
         self.messageLabel.setObjectName("messageLabel")
         self.verticalLayout.addWidget(self.messageLabel)
+        self.infoHorizontalLayout = QtWidgets.QHBoxLayout()
+        self.infoHorizontalLayout.setContentsMargins(-1, 11, -1, -1)
+        self.infoHorizontalLayout.setObjectName("infoHorizontalLayout")
+        self.nameLabel = QtWidgets.QLabel(Dialog)
+        self.nameLabel.setObjectName("nameLabel")
+        self.infoHorizontalLayout.addWidget(self.nameLabel)
+        self.nameLineEdit = QtWidgets.QLineEdit(Dialog)
+        self.nameLineEdit.setObjectName("nameLineEdit")
+        self.infoHorizontalLayout.addWidget(self.nameLineEdit)
+        self.colorLabel = QtWidgets.QLabel(Dialog)
+        self.colorLabel.setObjectName("colorLabel")
+        self.infoHorizontalLayout.addWidget(self.colorLabel)
+        self.colorButton = QtWidgets.QPushButton(Dialog)
+
+        #TODO: O código gerado pela interface não usa a constante, caso atualize, use a constante depois
+        self.colorButton.setStyleSheet("background-color: " + DEFAULT_SHAPE_COLOR.name() + ";")
+
+        self.colorButton.setText("")
+        self.colorButton.setObjectName("colorButton")
+        self.infoHorizontalLayout.addWidget(self.colorButton)
+        self.verticalLayout.addLayout(self.infoHorizontalLayout)
         self.addPointHorizontalLayout = QtWidgets.QHBoxLayout()
+        self.addPointHorizontalLayout.setContentsMargins(-1, 6, -1, 6)
         self.addPointHorizontalLayout.setObjectName("addPointHorizontalLayout")
         self.xLabel = QtWidgets.QLabel(Dialog)
         self.xLabel.setObjectName("xLabel")
         self.addPointHorizontalLayout.addWidget(self.xLabel)
         self.xSpinBox = QtWidgets.QSpinBox(Dialog)
-        self.xSpinBox.setMaximum(99999)
+        self.xSpinBox.setMinimum(-1000)
+        self.xSpinBox.setMaximum(1000)
         self.xSpinBox.setObjectName("xSpinBox")
         self.addPointHorizontalLayout.addWidget(self.xSpinBox)
         self.yLabel = QtWidgets.QLabel(Dialog)
@@ -47,21 +78,18 @@ class AddWireframeDialog(object):
         self.addPointHorizontalLayout.setStretch(1, 100)
         self.addPointHorizontalLayout.setStretch(3, 100)
         self.verticalLayout.addLayout(self.addPointHorizontalLayout)
-        self.itemsListWidgetGridLayout = QtWidgets.QGridLayout()
-        self.itemsListWidgetGridLayout.setObjectName("itemsListWidgetGridLayout")
-        self.yListLabel = QtWidgets.QLabel(Dialog)
-        self.yListLabel.setObjectName("yListLabel")
-        self.itemsListWidgetGridLayout.addWidget(self.yListLabel, 0, 1, 1, 1)
-        self.xListLabel = QtWidgets.QLabel(Dialog)
-        self.xListLabel.setObjectName("xListLabel")
-        self.itemsListWidgetGridLayout.addWidget(self.xListLabel, 0, 0, 1, 1)
-        self.itemsXListWidget = QtWidgets.QListWidget(Dialog)
-        self.itemsXListWidget.setObjectName("itemsXListWidget")
-        self.itemsListWidgetGridLayout.addWidget(self.itemsXListWidget, 1, 0, 1, 1)
-        self.itemsYListWidget = QtWidgets.QListWidget(Dialog)
-        self.itemsYListWidget.setObjectName("itemsYListWidget")
-        self.itemsListWidgetGridLayout.addWidget(self.itemsYListWidget, 1, 1, 1, 1)
-        self.verticalLayout.addLayout(self.itemsListWidgetGridLayout)
+        self.pointsTableWidget = QtWidgets.QTableWidget(Dialog)
+        self.pointsTableWidget.setRowCount(0)
+        self.pointsTableWidget.setObjectName("pointsTableWidget")
+        self.pointsTableWidget.setColumnCount(2)
+        item = QtWidgets.QTableWidgetItem()
+        self.pointsTableWidget.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.pointsTableWidget.setHorizontalHeaderItem(1, item)
+        self.pointsTableWidget.horizontalHeader().setDefaultSectionSize(100)
+        self.pointsTableWidget.verticalHeader().setVisible(False)
+        self.pointsTableWidget.verticalHeader().setHighlightSections(True)
+        self.verticalLayout.addWidget(self.pointsTableWidget)
         self.removeButton = QtWidgets.QPushButton(Dialog)
         icon = QtGui.QIcon.fromTheme("list-remove")
         self.removeButton.setIcon(icon)
@@ -76,86 +104,74 @@ class AddWireframeDialog(object):
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(Dialog.accept) # type: ignore
         self.buttonBox.rejected.connect(Dialog.reject) # type: ignore
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
-
+        QtCore.QMetaObject.connectSlotsByName(Dialog)   
+        
+        #TODO: Não é gerado pelo QtCreator, caso atualize a interface, adicionar depois
+        self.pointsTableWidget.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        self.pointsTableWidget.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+        
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Wireframe"))
         self.messageLabel.setText(_translate("Dialog", "Add the points of the polygon:"))
+        self.nameLabel.setText(_translate("Dialog", "Name"))
+        self.colorLabel.setText(_translate("Dialog", "Color"))
         self.xLabel.setText(_translate("Dialog", "x"))
         self.yLabel.setText(_translate("Dialog", "y"))
         self.addButton.setText(_translate("Dialog", "Add item"))
-        self.yListLabel.setText(_translate("Dialog", "y"))
-        self.xListLabel.setText(_translate("Dialog", "x"))
+        item = self.pointsTableWidget.horizontalHeaderItem(0)
+        item.setText(_translate("Dialog", "x"))
+        item = self.pointsTableWidget.horizontalHeaderItem(1)
+        item.setText(_translate("Dialog", "y"))
         self.removeButton.setText(_translate("Dialog", "Remove item"))
 
+
+    def get_name_value(self):
+        return self.nameLineEdit.text()
+    
+
+    def get_color_value(self):
+        return self.colorButton
+    
 
     def get_points_value(self):
         points = []
 
-        for index in range(self.itemsXListWidget.count()):
-            item = self.itemsXListWidget.item(index)
-            x_value = int(item.text())
+        for row in range(self.pointsTableWidget.rowCount()):
+            x_item = self.pointsTableWidget.item(row, 0) 
+            y_item = self.pointsTableWidget.item(row, 1)
             
-            y_item = self.itemsYListWidget.item(index)
-            y_value = int(y_item.text())
-
-            points.append((x_value, y_value))
+            if x_item is not None and y_item is not None:
+                x_value = int(x_item.text())
+                y_value = int(y_item.text())
+                points.append((x_value, y_value))
 
         return points
-    
-
-    def add_x_item(self, x):
-        item = QListWidgetItem(str(x))
-        
-        selected_item = self.itemsXListWidget.currentItem()
-        
-        if selected_item:
-            index = self.itemsXListWidget.row(selected_item)
-            self.itemsXListWidget.insertItem(index + 1, item)
-        else:
-            self.itemsXListWidget.addItem(item)
-
-        row = self.itemsXListWidget.row(item)
-        self.itemsXListWidget.setCurrentRow(row)
-
-
-    def add_y_item(self, y):
-        item = QListWidgetItem(str(y))
-        
-        selected_item = self.itemsYListWidget.currentItem()
-        
-        if selected_item:
-            index = self.itemsYListWidget.row(selected_item)
-            self.itemsYListWidget.insertItem(index + 1, item)
-        else:
-            self.itemsYListWidget.addItem(item)
-        
-        row = self.itemsYListWidget.row(item)
-        self.itemsYListWidget.setCurrentRow(row)
 
 
     def add_item(self):
         x = self.xSpinBox.value()
         y = self.ySpinBox.value()
 
-        self.add_x_item(x)
-        self.add_y_item(y)
+        row_position = self.pointsTableWidget.rowCount()
+        self.pointsTableWidget.insertRow(row_position)
 
-        self.xSpinBox.setValue(self.xSpinBox.minimum())
-        self.ySpinBox.setValue(self.ySpinBox.minimum())
+        self.pointsTableWidget.setItem(row_position, 0, QtWidgets.QTableWidgetItem(str(x)))
+        self.pointsTableWidget.setItem(row_position, 1, QtWidgets.QTableWidgetItem(str(y)))
+
+        self.xSpinBox.setValue(0)
+        self.ySpinBox.setValue(0)
 
         self.xSpinBox.setFocus()
 
+
     def remove_item(self):
-        x_selected_items = self.itemsXListWidget.selectedItems()
-        y_selected_items = self.itemsYListWidget.selectedItems()
+        selected_rows = set()
 
-        for x_item in x_selected_items:
-            row = self.itemsXListWidget.row(x_item)
-            self.itemsXListWidget.takeItem(row)
+        for index in self.pointsTableWidget.selectedIndexes():
+            selected_rows.add(index.row())
 
-        for y_item in y_selected_items:
-            row = self.itemsYListWidget.row(y_item)
-            self.itemsYListWidget.takeItem(row)
+        for row in sorted(selected_rows, reverse=True):
+            self.pointsTableWidget.removeRow(row)
+

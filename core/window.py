@@ -207,8 +207,9 @@ class Window(QMainWindow):
         if dialog.exec_() == QtWidgets.QDialog.Accepted:
             x_value = ui.get_x_value()
             y_value = ui.get_y_value()
+            name_value = ui.get_name_value()
             
-            point = Point(x_value, y_value, "Point")
+            point = Point(x_value, y_value, name_value)
             self.add_objects_list(point)
         
 
@@ -221,8 +222,9 @@ class Window(QMainWindow):
         if dialog.exec_() == QtWidgets.QDialog.Accepted:
             start_point = (ui.get_x1_value(), ui.get_y1_value())
             end_point = (ui.get_x2_value(), ui.get_y2_value())
+            name_value = ui.get_name_value()
 
-            line = Line(start_point, end_point, "Line")
+            line = Line(start_point, end_point, name_value)
             self.add_objects_list(line)
 
 
@@ -235,8 +237,9 @@ class Window(QMainWindow):
             start_point = (ui.get_x_value(), ui.get_y_value())
             width = ui.get_width_value()
             height = ui.get_height_value()
+            name_value = ui.get_name_value()
 
-            rectangle = Rectangle(start_point, width, height, "Rectangle")
+            rectangle = Rectangle(start_point, width, height, name_value)
             self.add_objects_list(rectangle)
 
 
@@ -250,8 +253,9 @@ class Window(QMainWindow):
 
         if dialog.exec_() == QtWidgets.QDialog.Accepted:
             points = ui.get_points_value()
-
-            wireframe = Wireframe(points, "Wireframe")
+            name_value = ui.get_name_value()
+            
+            wireframe = Wireframe(points, name_value)
             self.add_objects_list(wireframe)
             
     def paintEvent(self, event):
