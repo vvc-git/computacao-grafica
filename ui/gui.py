@@ -197,13 +197,3 @@ class Ui_MainWindow(object):
         self.zoomLabel.setText(_translate("MainWindow", "Zoom"))
         self.viewportLabel.setText(_translate("MainWindow", "Viewport"))
         self.terminalLabel.setText(_translate("MainWindow", "Terminal"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())

@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
-from PyQt5.QtCore import Qt, QLineF, QRect
-from PyQt5.QtGui import QPen
-from constant import WINDOW_WIDTH, VIEWPORT_HEIGHT, VIEWPORT_WIDTH, VIEWPORT_X
+from PyQt5.QtCore import QRect
+from utils.constant import WINDOW_WIDTH, VIEWPORT_HEIGHT, VIEWPORT_WIDTH, VIEWPORT_X
 
 
 class Object(ABC):
@@ -47,7 +46,7 @@ class Point(Object):
         # Define o tamanho do ponto
         tamanho_ponto = 10
 
-        posicaoX = self.x + self.viewport.getX() 
+        posicaoX = self.x + self.viewport.x 
         posicaoY = VIEWPORT_HEIGHT - self.y
 
         # Calcula o retângulo que circunda o ponto
@@ -121,7 +120,7 @@ class Line(Object):
         Point2 = self.points[1]
         
         # Corrige em relação ao viewport
-        posicaoX1 = Point1[0] + self.viewport.getX()
+        posicaoX1 = Point1[0] + self.viewport.x
         posicaoY1 = VIEWPORT_HEIGHT - Point1[1]
 
         posicaoX2 = Point2[0] + WINDOW_WIDTH - VIEWPORT_WIDTH
@@ -154,9 +153,9 @@ class Wireframe(Object):
             if i > 0:
             
                 # Corrige em relação ao viewport
-                posicaoX1 = previous[0] + self.viewport.getX() 
+                posicaoX1 = previous[0] + self.viewport.x 
                 posicaoY1 = VIEWPORT_HEIGHT - previous[1]
-                posicaoX2 = point[0] + self.viewport.getX() 
+                posicaoX2 = point[0] + self.viewport.x 
                 posicaoY2 = VIEWPORT_HEIGHT - point[1] 
 
                 # Desenha o círculo centrado no ponto
@@ -167,9 +166,9 @@ class Wireframe(Object):
 
                 if i == (len(self.points)-1):
                     # Corrige em relação ao viewport
-                    posicaoLastX = point[0] + self.viewport.getX() 
+                    posicaoLastX = point[0] + self.viewport.x 
                     posicaoLastY = VIEWPORT_HEIGHT - point[1] 
-                    posicaoFirstX = first[0] + self.viewport.getX()
+                    posicaoFirstX = first[0] + self.viewport.x
                     posicaoFirstY = VIEWPORT_HEIGHT - first[1]
 
                     # Desenha o círculo centrado no ponto
