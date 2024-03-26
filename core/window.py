@@ -194,6 +194,7 @@ class Window(QMainWindow):
     def add_objects_list(self, shape):
         self._world._display_file.append(shape)
         self._world.update_visible()
+        self.viewport.update()
         self.viewport.shapes.append(shape)
         self.objects.addItem(shape.name)
         self.update()
@@ -259,12 +260,3 @@ class Window(QMainWindow):
             wireframe = Wireframe(points, name_value)
             self.add_objects_list(wireframe)
             
-    def paintEvent(self, event):
-      painter = QPainter(self)
-      transformed_shapes = self._world.get_transformed_shapes((self._viewport._bottom_left.x(),
-                                                                       self._viewport._bottom_left.y(),
-                                                                       self._viewport._up_right.x(),
-                                                                       self._viewport._up_right.y()))
-
-      for shape, transformed_coords in transformed_shapes:
-          shape.draw(painter, transformed_coords)

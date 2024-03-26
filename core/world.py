@@ -85,4 +85,5 @@ class World:
                 x, y = point
                 if(x >= self._bottom_left.x() and x <= self._up_right.x()):
                     if(y >= self._bottom_left.y() and y <= self._up_right.y()):
+                        print('objeto ', object, 'adicionado em visible')
                         self._visible.append(object)

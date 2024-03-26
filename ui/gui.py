@@ -182,7 +182,6 @@ class Ui_MainWindow(object):
         self.typesListWidget.setCurrentRow(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Computação Gráfica 2D"))
@@ -204,7 +203,3 @@ class Ui_MainWindow(object):
         self.zoomMarkerLabel.setText(_translate("MainWindow", "100%"))
         self.viewportLabel.setText(_translate("MainWindow", "Viewport"))
         self.terminalLabel.setText(_translate("MainWindow", "Terminal"))
-
-
-    def update_zoom_label_text(self, value):
-        self.zoomMarkerLabel.setText(f"{value}%")

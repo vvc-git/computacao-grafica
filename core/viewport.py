@@ -13,7 +13,7 @@ from shapes.line import Line
 
 class Viewport(QWidget):  
     def __init__(self, window, world, parent=None):
-        super().__init__()
+        super().__init__(parent)
 
         self._window = window
         self._world = world
@@ -72,6 +72,7 @@ class Viewport(QWidget):
             self._y = 0
 
     def paintEvent(self, event):
+      print('viewport paint Event')
       painter = QPainter(self)
       painter.setPen(QPen(Qt.white, 10, Qt.SolidLine))
       painter.setBrush(QBrush(Qt.white, Qt.SolidPattern))
@@ -80,5 +81,7 @@ class Viewport(QWidget):
                                                                        self._up_right.x(),
                                                                        self._up_right.y()))
 
+        
       for shape, transformed_coords in transformed_shapes:
+          print(shape)
           shape.draw(painter, transformed_coords)
