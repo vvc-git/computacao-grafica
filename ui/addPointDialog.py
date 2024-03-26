@@ -27,12 +27,14 @@ class AddPointDialog(object):
         self.xLabel.setObjectName("xLabel")
         self.addPointHorizontalLayout.addWidget(self.xLabel)
         self.xSpinBox = QtWidgets.QSpinBox(Dialog)
+        self.xSpinBox.setMaximum(99999)
         self.xSpinBox.setObjectName("xSpinBox")
         self.addPointHorizontalLayout.addWidget(self.xSpinBox)
         self.yLabel = QtWidgets.QLabel(Dialog)
         self.yLabel.setObjectName("yLabel")
         self.addPointHorizontalLayout.addWidget(self.yLabel)
         self.ySpinBox = QtWidgets.QSpinBox(Dialog)
+        self.ySpinBox.setMaximum(99999)
         self.ySpinBox.setObjectName("ySpinBox")
         self.addPointHorizontalLayout.addWidget(self.ySpinBox)
         self.addPointHorizontalLayout.setStretch(1, 100)
@@ -49,9 +51,18 @@ class AddPointDialog(object):
         self.buttonBox.rejected.connect(Dialog.reject) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
+
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Point"))
         self.messageLabel.setText(_translate("Dialog", "Add the coordinates (x, y) of the point:"))
         self.xLabel.setText(_translate("Dialog", "x"))
         self.yLabel.setText(_translate("Dialog", "y"))
+
+   
+    def get_x_value(self):
+        return self.xSpinBox.value()
+
+
+    def get_y_value(self):
+        return self.ySpinBox.value()

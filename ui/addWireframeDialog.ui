@@ -31,7 +31,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="xSpinBox"/>
+      <widget class="QSpinBox" name="xSpinBox">
+       <property name="maximum">
+        <number>99999</number>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="yLabel">
@@ -41,7 +45,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="ySpinBox"/>
+      <widget class="QSpinBox" name="ySpinBox">
+       <property name="maximum">
+        <number>99999</number>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="addButton">
@@ -51,12 +59,36 @@
        <property name="icon">
         <iconset theme="list-add"/>
        </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <widget class="QListWidget" name="itemsListWidget"/>
+    <layout class="QGridLayout" name="itemsListWidgetGridLayout">
+     <item row="0" column="1">
+      <widget class="QLabel" name="yListLabel">
+       <property name="text">
+        <string>y</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="xListLabel">
+       <property name="text">
+        <string>x</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QListWidget" name="itemsXListWidget"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QListWidget" name="itemsYListWidget"/>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QPushButton" name="removeButton">

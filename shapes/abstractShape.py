@@ -1,13 +1,16 @@
+import uuid
 from abc import ABC, abstractmethod
 from typing import List, Tuple
+
+from PyQt5.QtGui import QColor
 
 from shapes.shapeType import ShapeType
 
 
 class AbstractShape(ABC):
-    def __init__(self, points: List[Tuple[int, int]], shape_id: int, name: str, color: str):
+    def __init__(self, points: List[Tuple[int, int]], name: str, color: QColor):
         self._points = points
-        self._id: int = shape_id
+        self._id: uuid.UUID = uuid.uuid4()
         self._name: str = name
         self._color: str = color
         self._type = ShapeType.OTHERS
@@ -24,16 +27,13 @@ class AbstractShape(ABC):
 
 
     @property
-    def id(self) -> int:
+    def id(self) -> uuid.UUID:
         return self._id
 
 
     @id.setter
-    def id(self, value: int):
-        if value >= 0:
-            self._id = value
-        else:
-            raise ValueError("ID must be a non-negative integer")
+    def id(self, value: uuid.UUID):
+        self._id = value
 
 
     @property
@@ -47,12 +47,12 @@ class AbstractShape(ABC):
 
 
     @property
-    def color(self) -> str:
+    def color(self) -> QColor:
         return self._color
 
 
     @color.setter
-    def color(self, value: str):
+    def color(self, value: QColor):
         self._color = value
     
     

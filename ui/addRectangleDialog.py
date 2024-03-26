@@ -30,24 +30,28 @@ class AddRectangleDialog(object):
         self.xLabel.setObjectName("xLabel")
         self.rectangleConfigurationGridLayout.addWidget(self.xLabel, 0, 0, 1, 1)
         self.xSpinBox = QtWidgets.QSpinBox(Dialog)
+        self.xSpinBox.setMaximum(99999)
         self.xSpinBox.setObjectName("xSpinBox")
         self.rectangleConfigurationGridLayout.addWidget(self.xSpinBox, 0, 1, 1, 1)
         self.yLabel = QtWidgets.QLabel(Dialog)
         self.yLabel.setObjectName("yLabel")
         self.rectangleConfigurationGridLayout.addWidget(self.yLabel, 0, 2, 1, 1)
         self.ySpinBox = QtWidgets.QSpinBox(Dialog)
+        self.ySpinBox.setMaximum(99999)
         self.ySpinBox.setObjectName("ySpinBox")
         self.rectangleConfigurationGridLayout.addWidget(self.ySpinBox, 0, 3, 1, 1)
-        self.widhtLabel = QtWidgets.QLabel(Dialog)
-        self.widhtLabel.setObjectName("widhtLabel")
-        self.rectangleConfigurationGridLayout.addWidget(self.widhtLabel, 1, 0, 1, 1)
+        self.widthLabel = QtWidgets.QLabel(Dialog)
+        self.widthLabel.setObjectName("widthLabel")
+        self.rectangleConfigurationGridLayout.addWidget(self.widthLabel, 1, 0, 1, 1)
         self.widhtSpinBox = QtWidgets.QSpinBox(Dialog)
+        self.widhtSpinBox.setMaximum(99999)
         self.widhtSpinBox.setObjectName("widhtSpinBox")
         self.rectangleConfigurationGridLayout.addWidget(self.widhtSpinBox, 1, 1, 1, 1)
         self.heightLabel = QtWidgets.QLabel(Dialog)
         self.heightLabel.setObjectName("heightLabel")
         self.rectangleConfigurationGridLayout.addWidget(self.heightLabel, 1, 2, 1, 1)
         self.heightSpinBox = QtWidgets.QSpinBox(Dialog)
+        self.heightSpinBox.setMaximum(99999)
         self.heightSpinBox.setObjectName("heightSpinBox")
         self.rectangleConfigurationGridLayout.addWidget(self.heightSpinBox, 1, 3, 1, 1)
         self.rectangleConfigurationGridLayout.setColumnMinimumWidth(1, 100)
@@ -70,6 +74,7 @@ class AddRectangleDialog(object):
         self.buttonBox.rejected.connect(Dialog.reject) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
+
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Rectangle"))
@@ -77,5 +82,21 @@ class AddRectangleDialog(object):
         self.message2Label.setText(_translate("Dialog", "height of the rectangle:"))
         self.xLabel.setText(_translate("Dialog", "x"))
         self.yLabel.setText(_translate("Dialog", "y"))
-        self.widhtLabel.setText(_translate("Dialog", "widht"))
+        self.widthLabel.setText(_translate("Dialog", "width"))
         self.heightLabel.setText(_translate("Dialog", "height"))
+
+
+    def get_x_value(self):
+        return self.xSpinBox.value()
+
+
+    def get_y_value(self):
+        return self.ySpinBox.value()
+    
+    
+    def get_width_value(self):
+        return self.widhtSpinBox.value()
+
+
+    def get_height_value(self):
+        return self.heightSpinBox.value()

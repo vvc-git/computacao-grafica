@@ -41,7 +41,11 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QSpinBox" name="xSpinBox"/>
+      <widget class="QSpinBox" name="xSpinBox">
+       <property name="maximum">
+        <number>99999</number>
+       </property>
+      </widget>
      </item>
      <item row="0" column="2">
       <widget class="QLabel" name="yLabel">
@@ -51,17 +55,25 @@
       </widget>
      </item>
      <item row="0" column="3">
-      <widget class="QSpinBox" name="ySpinBox"/>
+      <widget class="QSpinBox" name="ySpinBox">
+       <property name="maximum">
+        <number>99999</number>
+       </property>
+      </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="widhtLabel">
+      <widget class="QLabel" name="widthLabel">
        <property name="text">
-        <string>widht</string>
+        <string>width</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QSpinBox" name="widhtSpinBox"/>
+      <widget class="QSpinBox" name="widhtSpinBox">
+       <property name="maximum">
+        <number>99999</number>
+       </property>
+      </widget>
      </item>
      <item row="1" column="2">
       <widget class="QLabel" name="heightLabel">
@@ -71,7 +83,11 @@
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="QSpinBox" name="heightSpinBox"/>
+      <widget class="QSpinBox" name="heightSpinBox">
+       <property name="maximum">
+        <number>99999</number>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

@@ -29,24 +29,28 @@ class AddLineDialog(object):
         self.x1Label.setObjectName("x1Label")
         self.addPoinstLineGridLayout.addWidget(self.x1Label, 0, 0, 1, 1)
         self.x1SpinBox = QtWidgets.QSpinBox(Dialog)
+        self.x1SpinBox.setMaximum(99999)
         self.x1SpinBox.setObjectName("x1SpinBox")
         self.addPoinstLineGridLayout.addWidget(self.x1SpinBox, 0, 1, 1, 1)
         self.y1Label = QtWidgets.QLabel(Dialog)
         self.y1Label.setObjectName("y1Label")
         self.addPoinstLineGridLayout.addWidget(self.y1Label, 0, 2, 1, 1)
         self.y1SpinBox = QtWidgets.QSpinBox(Dialog)
+        self.y1SpinBox.setMaximum(99999)
         self.y1SpinBox.setObjectName("y1SpinBox")
         self.addPoinstLineGridLayout.addWidget(self.y1SpinBox, 0, 3, 1, 1)
         self.x2Label = QtWidgets.QLabel(Dialog)
         self.x2Label.setObjectName("x2Label")
         self.addPoinstLineGridLayout.addWidget(self.x2Label, 1, 0, 1, 1)
         self.x2SpinBox = QtWidgets.QSpinBox(Dialog)
+        self.x2SpinBox.setMaximum(99999)
         self.x2SpinBox.setObjectName("x2SpinBox")
         self.addPoinstLineGridLayout.addWidget(self.x2SpinBox, 1, 1, 1, 1)
         self.y2Label = QtWidgets.QLabel(Dialog)
         self.y2Label.setObjectName("y2Label")
         self.addPoinstLineGridLayout.addWidget(self.y2Label, 1, 2, 1, 1)
         self.y2SpinBox = QtWidgets.QSpinBox(Dialog)
+        self.y2SpinBox.setMaximum(99999)
         self.y2SpinBox.setObjectName("y2SpinBox")
         self.addPoinstLineGridLayout.addWidget(self.y2SpinBox, 1, 3, 1, 1)
         self.addPoinstLineGridLayout.setColumnMinimumWidth(1, 100)
@@ -69,6 +73,7 @@ class AddLineDialog(object):
         self.buttonBox.rejected.connect(Dialog.reject) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
+
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Line"))
@@ -78,3 +83,19 @@ class AddLineDialog(object):
         self.y1Label.setText(_translate("Dialog", "y1"))
         self.x2Label.setText(_translate("Dialog", "x2"))
         self.y2Label.setText(_translate("Dialog", "y2"))
+
+
+    def get_x1_value(self):
+        return self.x1SpinBox.value()
+
+
+    def get_y1_value(self):
+        return self.y1SpinBox.value()
+
+
+    def get_x2_value(self):
+        return self.x2SpinBox.value()
+
+
+    def get_y2_value(self):
+        return self.y2SpinBox.value()

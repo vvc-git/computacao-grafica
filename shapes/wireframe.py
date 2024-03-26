@@ -1,12 +1,14 @@
 from typing import List, Tuple
 
-from shapeType import ShapeType
-from abstractShape import AbstractShape
+from PyQt5.QtGui import QColor
+
+from shapes.shapeType import ShapeType
+from shapes.abstractShape import AbstractShape
 
 
 class Wireframe(AbstractShape):
-    def __init__(self, points: List[Tuple[int, int]], shape_id: int, name: str, color: str):
-        super().__init__(points, shape_id, name, color)
+    def __init__(self, points: List[Tuple[int, int]], name: str, color: QColor = QColor(255, 0, 0)):
+        super().__init__(points, name, color)
         self._type = ShapeType.WIREFRAME
 
 

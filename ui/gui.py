@@ -111,18 +111,24 @@ class Ui_MainWindow(object):
         self.zoomGridLayout = QtWidgets.QGridLayout()
         self.zoomGridLayout.setContentsMargins(-1, -1, -1, 0)
         self.zoomGridLayout.setObjectName("zoomGridLayout")
+        self.zoomLabel = QtWidgets.QLabel(self.functionsGroupBox)
+        self.zoomLabel.setObjectName("zoomLabel")
+        self.zoomGridLayout.addWidget(self.zoomLabel, 0, 0, 1, 1)
         self.zoomMarkerLabel = QtWidgets.QLabel(self.functionsGroupBox)
         self.zoomMarkerLabel.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.zoomMarkerLabel.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.zoomMarkerLabel.setObjectName("zoomMarkerLabel")
         self.zoomGridLayout.addWidget(self.zoomMarkerLabel, 1, 1, 1, 1)
         self.zoomHorizontalSlider = QtWidgets.QSlider(self.functionsGroupBox)
+        self.zoomHorizontalSlider.setMinimum(20)
+        self.zoomHorizontalSlider.setMaximum(200)
+        self.zoomHorizontalSlider.setSingleStep(20)
+        self.zoomHorizontalSlider.setPageStep(20)
+        self.zoomHorizontalSlider.setProperty("value", 100)
+        self.zoomHorizontalSlider.setSliderPosition(100)
         self.zoomHorizontalSlider.setOrientation(QtCore.Qt.Horizontal)
         self.zoomHorizontalSlider.setObjectName("zoomHorizontalSlider")
         self.zoomGridLayout.addWidget(self.zoomHorizontalSlider, 0, 1, 1, 1)
-        self.zoomLabel = QtWidgets.QLabel(self.functionsGroupBox)
-        self.zoomLabel.setObjectName("zoomLabel")
-        self.zoomGridLayout.addWidget(self.zoomLabel, 0, 0, 1, 1)
         self.functionsGroupBoxVerticalLayout.addLayout(self.zoomGridLayout)
         self.optionsVerticalLayout.addWidget(self.functionsGroupBox)
         self.widget = QtWidgets.QWidget(self.optionsWidget)
@@ -176,6 +182,7 @@ class Ui_MainWindow(object):
         self.typesListWidget.setCurrentRow(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Computação Gráfica 2D"))
@@ -193,7 +200,11 @@ class Ui_MainWindow(object):
         self.typesLabel.setText(_translate("MainWindow", "Types"))
         self.objectsLabel.setText(_translate("MainWindow", "Objects"))
         self.functionsGroupBox.setTitle(_translate("MainWindow", "Functions"))
-        self.zoomMarkerLabel.setText(_translate("MainWindow", "100%"))
         self.zoomLabel.setText(_translate("MainWindow", "Zoom"))
+        self.zoomMarkerLabel.setText(_translate("MainWindow", "100%"))
         self.viewportLabel.setText(_translate("MainWindow", "Viewport"))
         self.terminalLabel.setText(_translate("MainWindow", "Terminal"))
+
+
+    def update_zoom_label_text(self, value):
+        self.zoomMarkerLabel.setText(f"{value}%")

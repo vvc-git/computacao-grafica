@@ -1,12 +1,17 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPainter, QPen
+from PyQt5.QtGui import QPainter, QPen, QColor
 from PyQt5.QtWidgets import QMainWindow
 
 from utils.constant import WINDOW_HEIGHT, WINDOW_WIDTH
 from ui.gui import Ui_MainWindow
 from object import Line
 from core.viewport import Viewport
+
+from shapes.line import Line
+from shapes.point import Point
+from shapes.rectangle import Rectangle
+from shapes.wireframe import Wireframe
 
 from ui.addLineDialog import AddLineDialog
 from ui.addPointDialog import AddPointDialog
@@ -36,14 +41,23 @@ class Window(QMainWindow):
         self._objects = self._ui.objectsListWidget
         self._objects_remove_button = self._ui.objectsRemoveButton
 
+        # Define widget relacionados ao movimento
+        self._up_button = self._ui.upButton
+        self._down_button = self._ui.downButton
+        self._left_button = self._ui.leftButton
+        self._right_button = self._ui.rightButton
+
+        # Define widget relacionados ao zoom
+        self._zoom_slider = self.ui.zoomHorizontalSlider
+
         # Cria uma lista para armazenar os objetos a serem desenhados
         self._display_file = []
 
-        # Conecta os botões da janela
-        self._buttons_connection()
+        # Conecta os ações da janela
+        self.actions_connection()
 
         # Adiciona objetos gráficos para teste
-        self._teste()
+        self.teste()
 
 
     # Métodos getters para os atributos privados
@@ -93,11 +107,36 @@ class Window(QMainWindow):
 
 
     @property
+    def up_button(self):
+        return self._up_button
+    
+
+    @property
+    def down_button(self):
+        return self._down_button
+    
+    
+    @property
+    def left_button(self):
+        return self._left_button
+    
+
+    @property
+    def right_button(self):
+        return self._right_button
+    
+
+    @property
+    def zoom_slider(self):
+        return self._zoom_slider
+    
+
+    @property
     def display_file(self):
         return self._display_file
     
     
-    def _teste(self):
+    def teste(self):
         # Adiciona um objeto do tipo Line para teste
         objeto = Line('Line k', [(500, 0), (600, 200)], QPen(Qt.red, 1.5), self.viewport)
         self.display_file.append(objeto)
@@ -105,65 +144,137 @@ class Window(QMainWindow):
 
     def paintEvent(self, event):
         # Redesenha a janela
-        self._set_up_viewport()
+        self.setup_viewport()
         painter = QPainter(self)
-        for objeto in self.display_file:
-            objeto.draw(painter)
+        #for objeto in self.display_file:
+            #objeto.draw(painter)
 
 
-    def _set_up_viewport(self):
+    def setup_viewport(self):
         # Configura a área de visualização do terminal
         self.terminal.setStyleSheet("background-color: white;")
 
 
-    def _buttons_connection(self):
-        # Conecta os botões da janela aos respectivos métodos
-        self.types_add_button.clicked.connect(self._types_objects_buttons_connection)
+    def actions_connection(self):
+        # Conecta as ações da janela aos respectivos métodos
 
+        # Botão de adicionar novo objeto gráfico
+        self.types_add_button.clicked.connect(self.on_types_add_button)
+        
+        # Botão de remover objeto gráfico
+        self.objects_remove_button.clicked.connect(self.on_objects_remove_button)
 
-    def _types_objects_buttons_connection(self):
+        # Botões de movimento
+        self.up_button.clicked.connect(self.on_up_button)
+        self.down_button.clicked.connect(self.on_down_button)
+        self.left_button.clicked.connect(self.on_left_button)
+        self.right_button.clicked.connect(self.on_right_button)
+
+        # Slider de zoom
+        self.zoom_slider.valueChanged.connect(self.on_zoom_slider)
+    
+
+    def on_types_add_button(self):
         # Abre o diálogo correspondente ao tipo de objeto selecionado
         selectedType = self.types_objects.currentItem().text()
         if selectedType == "Point":
-            self._open_add_point_dialog()
+            self.open_add_point_dialog()
         elif selectedType == "Line":
-            self._open_add_line_dialog()
+            self.open_add_line_dialog()
         elif selectedType == "Rectangle":
-            self._open_add_rectangle_dialog()
+            self.open_add_rectangle_dialog()
         elif selectedType == "Wireframe":
-            self._open_add_wireframe_dialog()
+            self.open_add_wireframe_dialog()
         else:
             raise ValueError("The selected type is invalid.")
 
 
+    def on_objects_remove_button(self):
+        selected_shapes = self.objects.selectedItems()
+        
+        for shape in selected_shapes:
+            row = self.objects.row(shape)
+            del self.viewport.shapes[row]
+            self.objects.takeItem(row)
+        
+
+    def on_up_button(self):
+        print("on_up_button clicked!")
+
+
+    def on_down_button(self):
+        print("on_down_button clicked!")
+
+
+    def on_left_button(self):
+        print("on_left_button clicked!")
+
+
+    def on_right_button(self):
+        print("on_right_button clicked!")
+
+
+    def on_zoom_slider(self):
+        self.ui.update_zoom_label_text(self.zoom_slider.value())
+    
+    def add_objects_list(self, shape):
+        shape.draw()
+        self.viewport.shapes.append(shape)
+        self.objects.addItem(shape.name)
+
+
     # Métodos para abrir os diálogos de adição de objetos
-    def _open_add_point_dialog(self):
-        Dialog = QtWidgets.QDialog()
+    def open_add_point_dialog(self):
+        dialog = QtWidgets.QDialog()
         ui = AddPointDialog()
-        ui.setupUi(Dialog)
-        Dialog.show()
-        Dialog.exec_()
+        ui.setupUi(dialog)
+        
+        if dialog.exec_() == QtWidgets.QDialog.Accepted:
+            x_value = ui.get_x_value()
+            y_value = ui.get_y_value()
+            
+            point = Point(x_value, y_value, "Point")
+            self.add_objects_list(point)
+        
 
 
-    def _open_add_line_dialog(self):
-        Dialog = QtWidgets.QDialog()
+    def open_add_line_dialog(self):
+        dialog = QtWidgets.QDialog()
         ui = AddLineDialog()
-        ui.setupUi(Dialog)
-        Dialog.show()
-        Dialog.exec_()
+        ui.setupUi(dialog)
+        
+        if dialog.exec_() == QtWidgets.QDialog.Accepted:
+            start_point = (ui.get_x1_value(), ui.get_y1_value())
+            end_point = (ui.get_x2_value(), ui.get_y2_value())
+
+            line = Line(start_point, end_point, "Line")
+            self.add_objects_list(line)
 
 
-    def _open_add_rectangle_dialog(self):
-        Dialog = QtWidgets.QDialog()
+    def open_add_rectangle_dialog(self):
+        dialog = QtWidgets.QDialog()
         ui = AddRectangleDialog()
-        ui.setupUi(Dialog)
-        Dialog.show()
-        Dialog.exec_()
+        ui.setupUi(dialog)
+       
+        if dialog.exec_() == QtWidgets.QDialog.Accepted:
+            start_point = (ui.get_x_value(), ui.get_y_value())
+            width = ui.get_width_value()
+            height = ui.get_height_value()
+
+            rectangle = Rectangle(start_point, width, height, "Rectangle")
+            self.add_objects_list(rectangle)
 
 
-    def _open_add_wireframe_dialog(self):
-        Dialog = QtWidgets.QDialog()
+    def open_add_wireframe_dialog(self):
+        dialog = QtWidgets.QDialog()
         ui = AddWireframeDialog()
-        ui.setupUi(Dialog)
-        Dialog.show()
-        Dialog.exec_()
+        ui.setupUi(dialog)
+        
+        ui.addButton.clicked.connect(ui.add_item)
+        ui.removeButton.clicked.connect(ui.remove_item)
+
+        if dialog.exec_() == QtWidgets.QDialog.Accepted:
+            points = ui.get_points_value()
+
+            wireframe = Wireframe(points, "Wireframe")
+            self.add_objects_list(wireframe)
