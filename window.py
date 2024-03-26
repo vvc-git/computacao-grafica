@@ -23,7 +23,7 @@ class Window(QMainWindow):
       # Create Viewport
       view_frame = self.build_frame(self, VIEW_FRAME_GEOMETRY)
       self.__view_frame = view_frame
-      self.viewport = Viewport(self, self.world, parent=self.__view_frame)
+      self.viewport = Viewport(self, self.world, parent=self)
       self.viewport.setGeometry(VIEWPORT_GEOMETRY)
       
       # World
