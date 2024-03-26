@@ -4,20 +4,21 @@ from core.viewport import Viewport
 from shapes.abstractShape import AbstractShape
 
 class World:
-    def __init__(self, main_window, display_file: List[AbstractShape]):
-        self._main_window = main_window
-        self._display_file = display_file
+    def __init__(self, width, height: List[AbstractShape]):
+        self._display_file = []
+        self._visible = []
 
         # Área visível
         self._bottom_left = QPointF(0, 0)
-        self._up_right = QPointF(100, 100)
+        self._up_right = QPointF(width, height)
 
     def set_viewport(self, viewport: Viewport):
-        self.viewport = viewport
+        self._viewport = viewport
 
     def get_transformed_shapes(self, viewport_geometry: Tuple[float, float, float, float]) -> List[Tuple[AbstractShape, Tuple[int, int]]]:
         transformed_shapes = []
-        for shape in self._display_file:
+        print("visible in get_transformed_shapes", self._visible)
+        for shape in self._visible:
             transformed_coords = [self.to_viewport(coord, viewport_geometry) for coord in shape._points]
             transformed_shapes.append((shape, transformed_coords))
         return transformed_shapes
@@ -84,4 +85,16 @@ class World:
         self._main_window.update()
         print('zoom')
 
-    
+    def update_visible(self):
+        print("visivel display_file", self._display_file)
+        for object in self._display_file:
+            for point in object.get_points():
+                x, y = point
+                print('x e bottom_left_x()', x, self._bottom_left.x())
+                print('x e up_right()', x, self._up_right.x())
+                print('y e bottom_left_y()', y, self._bottom_left.y())
+                print('y e up_right_y()', y, self._up_right.y())
+                if(x >= self._bottom_left.x() and x <= self._up_right.x()):
+                    if(y >= self._bottom_left.y() and y <= self._up_right.y()):
+                        self._visible.append(object)
+                        print("visivel _visible", self._visible)

@@ -2,7 +2,7 @@ from typing import List
 
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import QPointF, Qt
-from PyQt5.QtGui import QPainter, QPen
+from PyQt5.QtGui import QPainter, QPen, QBrush
 
 from shapes.abstractShape import AbstractShape
 from utils.constant import WINDOW_HEIGHT, WINDOW_WIDTH, VIEWPORT_HEIGHT, VIEWPORT_WIDTH
@@ -59,17 +59,6 @@ class Viewport(QWidget):
         return self._y
 
 
-    def paintEvent(self, event):
-      print('painterEvent')
-      painter = QPainter(self)
-      transformed_shapes = self.world.get_transformed_shapes((self._bottom_left.x(),
-                                                                       self._bottom_left.y(),
-                                                                       self._up_right.x(),
-                                                                       self._up_right.y()))
-
-      for shape, transformed_coords in transformed_shapes:
-          shape.draw(painter, transformed_coords)
-
     def desloca(self):
         # Verifica se o deslocamento não ultrapassa os limites
         if self._x - 200 >= 0:
@@ -81,3 +70,17 @@ class Viewport(QWidget):
             self._y -= 200
         else:
             self._y = 0
+
+    def paintEvent(self, event):
+      print('entrouuu')
+      painter = QPainter(self)
+      painter.setPen(QPen(Qt.white, 10, Qt.SolidLine))
+      painter.setBrush(QBrush(Qt.white, Qt.SolidPattern))
+      transformed_shapes = self._world.get_transformed_shapes((self._bottom_left.x(),
+                                                                       self._bottom_left.y(),
+                                                                       self._up_right.x(),
+                                                                       self._up_right.y()))
+
+      for shape, transformed_coords in transformed_shapes:
+          print('Desenhando...')
+          shape.draw(painter, transformed_coords)

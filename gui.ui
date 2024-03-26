@@ -35,37 +35,6 @@
       </item>
      </layout>
     </item>
-    <item row="0" column="1">
-     <layout class="QVBoxLayout" name="viewportVerticalLayout" stretch="0,100">
-      <item>
-       <widget class="QLabel" name="viewportLabel">
-        <property name="text">
-         <string>Viewport</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="viewportWidget" native="true">
-        <widget class="QFrame" name="frame">
-         <property name="geometry">
-          <rect>
-           <x>-1</x>
-           <y>-21</y>
-           <width>641</width>
-           <height>421</height>
-          </rect>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-        </widget>
-       </widget>
-      </item>
-     </layout>
-    </item>
     <item row="0" column="0" rowspan="2">
      <layout class="QVBoxLayout" name="optionsVerticalLayout" stretch="0,0,0">
       <property name="leftMargin">
@@ -252,6 +221,9 @@
        </widget>
       </item>
      </layout>
+    </item>
+    <item row="0" column="1">
+     <widget class="QGraphicsView" name="viewport"/>
     </item>
    </layout>
   </widget>

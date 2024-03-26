@@ -36,7 +36,7 @@ class Window(QMainWindow):
         self._terminal = self._ui.terminalWidget
         self._options = self._ui.optionsWidget
         
-        self._world = World(self, self._display_file)
+        self._world = World(100,100)
 
 
         self._viewport = Viewport(self, self._world, parent=self)
@@ -193,6 +193,7 @@ class Window(QMainWindow):
     
     def add_objects_list(self, shape):
         self._world._display_file.append(shape)
+        self._world.update_visible()
         self.viewport.shapes.append(shape)
         self.objects.addItem(shape.name)
         self.update()

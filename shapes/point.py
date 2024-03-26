@@ -10,6 +10,9 @@ class Point(AbstractShape):
         super().__init__([(x, y)], name, color)
         self._type = ShapeType.POINT
 
+    def get_points(self):
+        return self._points
+
     def draw(self, painter, points):
         x, y = points[0]
         #painter.setPen(self.color)
