@@ -8,7 +8,8 @@ class World:
         self._main_window = main_window
         self._display_file = display_file
 
-        self._bottom_left = QPointF(-100, -100)
+        # Área visível
+        self._bottom_left = QPointF(0, 0)
         self._up_right = QPointF(100, 100)
 
     def set_viewport(self, viewport: Viewport):
