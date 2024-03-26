@@ -1,58 +1,64 @@
 import sys
-import random
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene
 from PyQt5.QtGui import QPainter, QColor
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QRectF
 
+class Viewport(QGraphicsView):
+    def __init__(self, window):
+        super().__init__(window)
+        self.window = window
+        self.setStyleSheet("background-color: white;")  # Define a cor de fundo da viewport
 
-class MyWidget(QWidget):
-    def __init__(self):
+        self.setSceneRect(QRectF(self.viewport().rect()))
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        self.setSceneRect(QRectF(self.viewport().rect()))
+
+class Window(QGraphicsView):
+    def __init__(self, viewport):
         super().__init__()
+        self.setViewport(viewport)
+        self.setStyleSheet("background-color: lightgray;")  # Define a cor de fundo da window
 
-        self.rectangles = []
+        self.setScene(QGraphicsScene())
+        self.setRenderHint(QPainter.Antialiasing)  # Melhora a qualidade do desenho
 
-        # Define a cor de fundo da janela como branco
-        self.setAutoFillBackground(True)
-        p = self.palette()
-        p.setColor(self.backgroundRole(), Qt.white)
-        self.setPalette(p)
-
-    def paintEvent(self, event):
-        qp = QPainter()
-        qp.begin(self)
-        self.draw_rectangles(qp)
-        qp.end()
-
-    def draw_rectangles(self, qp):
-        for rect in self.rectangles:
-            qp.setBrush(QColor(*rect['color']))
-            qp.drawRect(*rect['rectangle'])
-
-    def generate_rectangle(self):
-        x = random.randint(0, self.width())
-        y = random.randint(0, self.height())
-        width = random.randint(20, 200)
-        height = random.randint(20, 200)
-        color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-        self.rectangles.append({'rectangle': (x, y, width, height), 'color': color})
-        self.update()
-
+    def drawEllipse(self, x, y, width, height):
+        self.scene().addEllipse(x, y, width, height)
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setGeometry(100, 100, 800, 600)
-        self.setWindowTitle("Gerador de Retângulos Aleatórios")
+        self.setWindowTitle("Exemplo Window e Viewport")
+        self.setGeometry(100, 100, 600, 400)
 
-        self.central_widget = MyWidget()
-        self.setCentralWidget(self.central_widget)
+        # Criando a viewport e a window
+        self.viewport = Viewport(self)
+        self.window = Window(self.viewport)
 
-        self.timer = self.central_widget.startTimer(1000)  # Timer para adicionar retângulos a cada segundo
+        # Definindo a window como a central
+        self.setCentralWidget(self.window)
 
-    def timerEvent(self, event):
-        self.central_widget.generate_rectangle()
+        # Adicionando um item à window (será nossa "viewport")
+        self.window.drawEllipse(0, 0, 100, 100)
 
+    def keyPressEvent(self, event):
+        # Movimenta a janela para mostrar apenas metade da elipse
+        if event.key() == Qt.Key_Left:
+            self.moveWindow(-10, 0)
+        elif event.key() == Qt.Key_Right:
+            self.moveWindow(10, 0)
+        elif event.key() == Qt.Key_Up:
+            self.moveWindow(0, -10)
+        elif event.key() == Qt.Key_Down:
+            self.moveWindow(0, 10)
+
+    def moveWindow(self, dx, dy):
+        self.window.move(dx, dy)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

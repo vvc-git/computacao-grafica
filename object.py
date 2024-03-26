@@ -46,18 +46,15 @@ class Point(Object):
         # painter.drawRect(self.x, self.y, 150, 150)
 
         # * Isso gera circulos bem pequenos para representar os pontos
-        posicaoX = self.x + self.viewport.getX() 
-        posicaoY = VIEWPORT_HEIGHT - self.y
-
-        # Calcula o retângulo que circunda o ponto
-        x_esquerda = posicaoX - tamanho_ponto // 2
-        y_superior = self.y - tamanho_ponto // 2
-
-
-        # Define o tamanho do ponto
         tamanho_ponto = 10
 
-        ponto_rect = QRect(posicaoX, posicaoY, tamanho_ponto, tamanho_ponto)
+        # Calcula o retângulo que circunda o ponto
+        x_esquerda = points[0][0]- tamanho_ponto // 2
+        y_superior = points[0][1] - tamanho_ponto // 2
+
+        # Define o tamanho do ponto
+
+        ponto_rect = QRect(x_esquerda, y_superior, tamanho_ponto, tamanho_ponto)
         # Desenha o círculo centrado no ponto
         painter.drawEllipse(ponto_rect)
 

@@ -4,8 +4,8 @@ from PyQt5.QtCore import QPointF
 class World:
     def __init__(self, main_window, display_file):
         # hardcoded por enquanto
-        self.x = -1000;
-        self.y = -1000;
+        self.x = 100;
+        self.y = 100;
         self.width = 1000;
         self.height = 1000;
         self._main_window = main_window
@@ -39,3 +39,44 @@ class World:
         yvp = yvmin + (1 - (yw - ywmin) / (ywmax - ywmin)) * multy
 
         return (int(xvp), int(yvp))
+    
+    def shift_left(self):
+        xnew = self.__bottom_left.x() + 50
+        self.__bottom_left.setX(xnew)
+
+        xnew = self.__up_right.x() + 50
+        self.__up_right.setX(xnew)
+        self._main_window.update_paint_event()
+        print('botao esquerdo')
+    
+    def shift_right(self):
+        xnew = self.__bottom_left.x() - 50
+        self.__bottom_left.setX(xnew)
+
+        xnew = self.__up_right.x() - 50
+        self.__up_right.setX(xnew)
+
+        self._main_window.update_paint_event()
+        print('botao direito')
+
+    def shift_up(self):
+        ynew = self.__bottom_left.y() - 50
+        self.__bottom_left.setY(ynew)
+
+        ynew = self.__up_right.y() - 50
+        self.__up_right.setY(ynew)
+
+        self._main_window.update_paint_event()
+        print('botao cima')
+    
+    def shift_down(self):
+        ynew = self.__bottom_left.y() + 50
+        self.__bottom_left.setY(ynew)
+
+        ynew = self.__up_right.y() + 50
+        self.__up_right.setY(ynew)
+
+        self._main_window.update_paint_event()
+        print('botao baixo')
+
+    

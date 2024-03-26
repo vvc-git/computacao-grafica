@@ -1,16 +1,14 @@
-from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QLabel, QWidget
 from PyQt5.QtGui import QPainter
 from PyQt5.QtCore import QPointF
 
-class Viewport(QLabel):  
+class Viewport(QWidget):  
     def __init__(self, window, world, parent=None): #points = (x1, y1)
       super().__init__()
       self.window = window
       self.world = world
-      # self.widget.setStyleSheet("background-color: gray;")
-
+      self.parent = parent
+      # self.parent.setStyleSheet("background-color: gray;")
+      print(parent.pos() + parent.rect().bottomLeft())
       self._bottom_left = QPointF(0, 0)
-      self._up_right = QPointF(440, 1150)
-
-    def desloca(self):
-       self.x -= 200
+      self._up_right = QPointF(parent.width(), parent.height())
