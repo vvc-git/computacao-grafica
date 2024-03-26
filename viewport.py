@@ -15,8 +15,8 @@ class Viewport(QWidget):
       
       # self.parent.setStyleSheet("background-color: gray;")
       print(parent)
-      self._bottom_left = QPointF(400, 600)
-      self._up_right = QPointF(1000, 0)
+      self._bottom_left = QPointF(0, 0)
+      self._up_right = QPointF(parent.width(), parent.height())
 
       self.teste()
 
