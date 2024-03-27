@@ -12,10 +12,9 @@ from shapes.line import Line
 
 
 class Viewport(QWidget):  
-    def __init__(self, window, world, parent=None):
+    def __init__(self, world, parent=None):
         super().__init__(parent)
 
-        self._window = window
         self._world = world
         self._parent = parent
 
@@ -24,10 +23,10 @@ class Viewport(QWidget):
         self._limitY = WINDOW_HEIGHT - VIEWPORT_HEIGHT
         self._x = self._limitX
         self._y = self._limitY
-        self._shapes: List[AbstractShape] = []
+        self._shapes = []
 
-        self._bottom_left = QPointF(0, 0)
-        self._up_right = QPointF(900, 900)
+        self._bottom_left = QPointF(0, 540)
+        self._up_right = QPointF(50, 4300)
 
     @property
     def shapes(self) -> List[AbstractShape]:
@@ -72,16 +71,18 @@ class Viewport(QWidget):
             self._y = 0
 
     def paintEvent(self, event):
-      print('viewport paint Event')
-      painter = QPainter(self)
-      painter.setPen(QPen(Qt.white, 10, Qt.SolidLine))
-      painter.setBrush(QBrush(Qt.white, Qt.SolidPattern))
-      transformed_shapes = self._world.get_transformed_shapes((self._bottom_left.x(),
-                                                                       self._bottom_left.y(),
-                                                                       self._up_right.x(),
-                                                                       self._up_right.y()))
+        print('viewport paint Event')
+        painter = QPainter(self)
+        painter.setPen(QPen(Qt.white, 10, Qt.SolidLine))
+        painter.setBrush(QBrush(Qt.white, Qt.SolidPattern))
+        transformed_shapes = self._world.get_transformed_shapes((self._bottom_left.x(),
+                                                                        self._bottom_left.y(),
+                                                                        self._up_right.x(),
+                                                                        self._up_right.y()))
 
         
-      for shape, transformed_coords in transformed_shapes:
-          print(shape)
-          shape.draw(painter, transformed_coords)
+        for shape, transformed_coords in transformed_shapes:
+            print(shape)
+            shape.draw(painter, transformed_coords)
+        
+        painter.end()

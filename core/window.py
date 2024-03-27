@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt, QPointF
+from PyQt5.QtCore import Qt, QPointF, QRect
 from PyQt5.QtGui import QPainter, QPen, QColor
 from PyQt5.QtWidgets import QMainWindow, QFrame
 
@@ -39,9 +39,11 @@ class Window(QMainWindow):
         self._world = World(100,100)
 
 
-        self._viewport = Viewport(self, self._world, parent=self)
-        self._world.set_viewport(self._viewport)
+        self._viewport = Viewport(self._world, parent=self)
+        self._viewport.setGeometry(QRect(280, 10, 541, 431))
 
+
+        self._world.set_viewport(self._viewport)
         # Define widgets relacionados aos tipos de objetos
         self._types_objects = self._ui.typesListWidget
         self._types_add_button = self._ui.typesAddButton
@@ -62,6 +64,11 @@ class Window(QMainWindow):
 
         # Conecta os ações da janela
         self.actions_connection()
+
+        # linha2 = Line((0,0), (1000, 500), 'Line 2')
+        # self._world._display_file.append(linha2)
+        # self._world.update_visible()
+
 
 
     # Métodos getters para os atributos privados
